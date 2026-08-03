@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>Keuangan Pasis — V38.4 Branding Global</title>
+  <title>Keuangan Pasis — V38.8 Nol Awal Permanen</title>
   <meta name="description" content="Platform manajemen keuangan Pasis multi-kelas dengan provisioning database otomatis." />
-  <meta name="application-version" content="38.4-global-company-branding" />
+  <meta name="application-version" content="38.8-leading-zero-database" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -759,6 +759,35 @@
       .modal-actions { flex-direction: column-reverse; }
       .modal-actions .btn { width: 100%; }
       .toast { right: 14px; bottom: 14px; left: 14px; min-width: 0; }
+    }
+
+    .settings-edit-status {
+      display: inline-flex;
+      min-height: 39px;
+      align-items: center;
+      padding: 0 11px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: rgba(15, 23, 42, .48);
+      color: var(--subtle);
+      font-size: 9px;
+      font-weight: 700;
+    }
+    .settings-edit-status.editing {
+      border-color: rgba(251, 191, 36, .25);
+      background: rgba(251, 191, 36, .08);
+      color: #fcd34d;
+    }
+    #page-pengaturan.settings-locked .settings-form .input:disabled,
+    #page-pengaturan.settings-locked .settings-form .select:disabled,
+    #page-pengaturan.settings-locked .settings-form .textarea:disabled {
+      cursor: default;
+      opacity: .78;
+      background: rgba(8, 13, 24, .52);
+      color: #cbd5e1;
+    }
+    #page-pengaturan.settings-editing .panel {
+      border-color: rgba(251, 191, 36, .16);
     }
 
     @media print {
@@ -1825,7 +1854,9 @@
     body.read-only-mode #addCashPaymentBtn,
     body.read-only-mode #addAttendancePaymentBtn,
     body.read-only-mode #addGraduationPaymentBtn,
+    body.read-only-mode #editSettingsBtn,
     body.read-only-mode #saveSettingsBtn,
+    body.read-only-mode #cancelSettingsBtn,
     body.database-loading [data-open-transaction],
     body.database-loading [data-edit-transaction],
     body.database-loading [data-delete-transaction],
@@ -3762,7 +3793,7 @@
 
 
     /* =========================
-       V38.4 TEAM IT PORTAL, GLOBAL BRANDING & CLASS SWITCHER
+       V38.8 LEADING ZERO DATABASE + V38.7 FEATURES
     ========================= */
     .it-class-switcher {
       display: none;
@@ -3883,7 +3914,7 @@
           </div>
           <div class="login-options">
             <label class="remember-login"><input id="rememberLogin" type="checkbox" /> Remember</label>
-            <button class="login-forgot-btn" id="forgotPasswordBtn" type="button">Lupa kata sandi?</button>
+            <button class="login-forgot-btn" id="forgotPasswordBtn" type="button">Lupa username / kata sandi?</button>
           </div>
           <button class="btn btn-primary login-submit is-awaiting-action" id="loginSubmit" type="button" aria-disabled="true">Masuk ke Aplikasi</button>
           <div class="login-public-actions">
@@ -4944,7 +4975,12 @@
       <section class="page" id="page-pengaturan">
         <div class="page-toolbar">
           <div><h2>Pengaturan Aplikasi</h2><p>Sesuaikan identitas, target uang kas per anggota, anggaran, dan preferensi aplikasi.</p></div>
-          <div class="toolbar-actions"><button class="btn btn-primary" id="saveSettingsBtn" type="button">Simpan Pengaturan</button></div>
+          <div class="toolbar-actions">
+            <span class="settings-edit-status" id="settingsEditStatus">Mode baca</span>
+            <button class="btn btn-secondary" id="editSettingsBtn" type="button">Edit Pengaturan</button>
+            <button class="btn btn-secondary" id="cancelSettingsBtn" type="button" hidden>Batal</button>
+            <button class="btn btn-primary" id="saveSettingsBtn" type="button" hidden>Simpan Perubahan</button>
+          </div>
         </div>
 
         <div class="settings-grid">
@@ -4975,11 +5011,11 @@
                 </div>
               </div>
               <div class="field"><label for="settingChairName">Nama ketua kelas</label><input class="input" id="settingChairName" type="text" /></div>
-              <div class="field"><label for="settingChairPhone">Nomor ketua kelas</label><input class="input" id="settingChairPhone" inputmode="tel" type="text" placeholder="08xxxxxxxxxx" /></div>
+              <div class="field"><label for="settingChairPhone">Nomor ketua kelas</label><input class="input preserve-zero" id="settingChairPhone" inputmode="numeric" type="text" placeholder="08xxxxxxxxxx" /></div>
               <div class="field"><label for="settingViceChairName">Nama wakil ketua</label><input class="input" id="settingViceChairName" type="text" /></div>
-              <div class="field"><label for="settingViceChairPhone">Nomor wakil ketua</label><input class="input" id="settingViceChairPhone" inputmode="tel" type="text" placeholder="08xxxxxxxxxx" /></div>
+              <div class="field"><label for="settingViceChairPhone">Nomor wakil ketua</label><input class="input preserve-zero" id="settingViceChairPhone" inputmode="numeric" type="text" placeholder="08xxxxxxxxxx" /></div>
               <div class="field"><label for="settingTreasurer">Nama bendahara</label><input class="input" id="settingTreasurer" type="text" /></div>
-              <div class="field"><label for="settingTreasurerPhone">Nomor bendahara</label><input class="input" id="settingTreasurerPhone" inputmode="tel" type="text" placeholder="08xxxxxxxxxx" /></div>
+              <div class="field"><label for="settingTreasurerPhone">Nomor bendahara</label><input class="input preserve-zero" id="settingTreasurerPhone" inputmode="numeric" type="text" placeholder="08xxxxxxxxxx" /></div>
               <div class="field"><label for="settingMonthlyFee">Target uang kas per anggota</label><input class="input" id="settingMonthlyFee" inputmode="numeric" type="text" /></div>
               <div class="field"><label for="settingGraduationFee">Target uang wisuda per anggota</label><input class="input" id="settingGraduationFee" inputmode="numeric" type="text" /></div>
               <div class="field"><label for="settingGraduationPeriod">Program/periode wisuda aktif</label><input class="input" id="settingGraduationPeriod" type="text" placeholder="Contoh: Wisuda 2026" /></div>
@@ -4987,7 +5023,7 @@
               <div class="field"><label for="settingCurrency">Mata uang</label><select class="select" id="settingCurrency"><option value="IDR">Rupiah (IDR)</option></select></div>
               <div class="field"><label for="settingPaymentBank">Bank/metode pembayaran</label><input class="input" id="settingPaymentBank" type="text" placeholder="Contoh: BNI" /></div>
               <div class="field"><label for="settingPaymentAccountName">Rekening atas nama</label><input class="input" id="settingPaymentAccountName" type="text" /></div>
-              <div class="field"><label for="settingPaymentAccountNumber">Nomor rekening</label><input class="input" id="settingPaymentAccountNumber" inputmode="numeric" type="text" placeholder="Angka 0 di depan tetap disimpan" /></div>
+              <div class="field"><label for="settingPaymentAccountNumber">Nomor rekening</label><input class="input preserve-zero" id="settingPaymentAccountNumber" inputmode="numeric" type="text" placeholder="Angka 0 di depan tetap disimpan" /></div>
               <div class="field"><label for="settingPaymentContact">Kontak konfirmasi pembayaran</label><input class="input" id="settingPaymentContact" inputmode="tel" type="text" placeholder="Nama / WhatsApp" /></div>
               <div class="field full"><label for="settingPaymentInstructions">Petunjuk pembayaran</label><textarea class="textarea" id="settingPaymentInstructions" placeholder="Contoh: Cantumkan nama, jenis pembayaran, dan kirim bukti transfer ke bendahara."></textarea></div>
             </div>
@@ -5390,9 +5426,9 @@
         <input id="memberId" type="hidden" />
         <div class="form-grid">
           <div class="field full"><label for="memberName">Nama anggota</label><input class="input" id="memberName" type="text" required /></div>
-          <div class="field"><label for="memberPhone">Nomor telepon</label><input class="input" id="memberPhone" type="tel" inputmode="numeric" autocomplete="tel" pattern="[0-9+() -]{6,25}" required /></div>
+          <div class="field"><label for="memberPhone">Nomor telepon</label><input class="input preserve-zero" id="memberPhone" type="text" inputmode="numeric" autocomplete="tel" pattern="[0-9+() -]{6,25}" required /></div>
           <div class="field"><label for="memberBank">Nama bank</label><input class="input" id="memberBank" type="text" required /></div>
-          <div class="field full"><label for="memberAccount">Nomor rekening</label><input class="input" id="memberAccount" type="text" inputmode="numeric" autocomplete="off" pattern="[0-9 -]{4,40}" required /></div>
+          <div class="field full"><label for="memberAccount">Nomor rekening</label><input class="input preserve-zero" id="memberAccount" type="text" inputmode="numeric" autocomplete="off" pattern="[0-9 -]{4,40}" required /></div>
           <div class="field"><label for="memberStatus">Status anggota</label><select class="select" id="memberStatus"><option value="Aktif">Aktif</option><option value="Cuti">Cuti</option></select></div>
           <div class="field"><label>Status uang kas</label><input class="input" type="text" value="Dihitung otomatis dari pembayaran" disabled /></div>
           <div class="field"><label for="memberLoginUsername">Username login Pasis</label><input class="input" id="memberLoginUsername" type="text" autocomplete="off" required /></div>
@@ -5403,7 +5439,7 @@
 
         <div class="modal-actions">
           <button class="btn btn-secondary" type="button" data-close-modal="memberModal">Batal</button>
-          <button class="btn btn-primary" type="submit">Simpan Anggota</button>
+          <button class="btn btn-primary" id="memberSubmitBtn" type="submit">Simpan Anggota</button>
         </div>
       </form>
     </div>
@@ -5470,7 +5506,7 @@
           <div class="field"><label for="registrationWave">Gelombang</label><input class="input" id="registrationWave" type="text" placeholder="Gelombang 1" maxlength="80" required /></div>
           <div class="field"><label for="registrationEstimatedMembers">Perkiraan anggota</label><input class="input" id="registrationEstimatedMembers" type="number" min="0" max="5000" placeholder="30" /></div>
           <div class="field"><label for="registrationChairName">Nama calon ketua</label><input class="input" id="registrationChairName" type="text" maxlength="160" required /></div>
-          <div class="field"><label for="registrationChairPhone">Nomor WhatsApp</label><input class="input" id="registrationChairPhone" type="tel" inputmode="tel" placeholder="08xxxxxxxxxx" required /></div>
+          <div class="field"><label for="registrationChairPhone">Nomor WhatsApp</label><input class="input preserve-zero" id="registrationChairPhone" type="text" inputmode="numeric" placeholder="08xxxxxxxxxx" required /></div>
           <div class="field"><label for="registrationUsername">Username ketua</label><input class="input" id="registrationUsername" type="text" autocomplete="username" placeholder="ketua.pasis.a" maxlength="40" required /></div>
           <div class="field"><label for="registrationPassword">Kata sandi</label><input class="input" id="registrationPassword" type="password" autocomplete="new-password" minlength="8" maxlength="128" required /></div>
           <div class="field full"><label for="registrationRequestNote">Catatan untuk Team IT</label><textarea class="textarea" id="registrationRequestNote" maxlength="1000" placeholder="Informasi tambahan yang membantu proses verifikasi."></textarea></div>
@@ -5514,7 +5550,7 @@
         <input id="classStaffUserId" type="hidden" />
         <div class="form-grid">
           <div class="field"><label for="classStaffName">Nama lengkap</label><input class="input" id="classStaffName" type="text" maxlength="160" required /></div>
-          <div class="field"><label for="classStaffPhone">Nomor WhatsApp</label><input class="input" id="classStaffPhone" type="tel" inputmode="tel" /></div>
+          <div class="field"><label for="classStaffPhone">Nomor WhatsApp</label><input class="input preserve-zero" id="classStaffPhone" type="text" inputmode="numeric" /></div>
           <div class="field"><label for="classStaffRole">Peran</label><select class="select" id="classStaffRole"><option value="class_vice_chair">Wakil Kelas</option><option value="class_treasurer">Bendahara</option></select></div>
           <div class="field"><label for="classStaffUsername">Username</label><input class="input" id="classStaffUsername" type="text" maxlength="40" required /></div>
           <div class="field full"><label for="classStaffPassword">Kata sandi <span id="classStaffPasswordHint">(wajib untuk akun baru)</span></label><input class="input" id="classStaffPassword" type="password" minlength="8" maxlength="128" autocomplete="new-password" /></div>
@@ -5606,13 +5642,29 @@
   <div class="modal-backdrop" id="forgotPasswordModal">
     <div class="modal" role="dialog" aria-modal="true" aria-labelledby="forgotPasswordTitle">
       <div class="modal-head">
-        <div><span>PEMULIHAN AKUN</span><h2 id="forgotPasswordTitle">Lupa Kata Sandi</h2></div>
+        <div><span>PEMULIHAN AKUN</span><h2 id="forgotPasswordTitle">Lupa Username / Kata Sandi</h2></div>
         <button class="close-btn" type="button" data-close-modal="forgotPasswordModal"><svg viewBox="0 0 24 24"><path d="M6 6l12 12"></path><path d="M18 6 6 18"></path></svg></button>
       </div>
       <form id="forgotPasswordForm">
         <div class="form-grid">
-          <div class="field full"><label for="forgotPasswordUsername">Username</label><input class="input" id="forgotPasswordUsername" type="text" placeholder="Masukkan username" autocomplete="username" required /></div>
-          <div class="field full"><label for="forgotPasswordNote">Catatan untuk Team IT</label><textarea class="textarea" id="forgotPasswordNote" placeholder="Contoh: Saya lupa kata sandi dan memerlukan akun untuk melihat pembayaran."></textarea></div>
+          <div class="field full">
+            <label for="forgotRecoveryType">Jenis pemulihan</label>
+            <select class="select" id="forgotRecoveryType">
+              <option value="password">Saya ingat username, lupa kata sandi</option>
+              <option value="chair_credentials">Ketua Kelas lupa username dan kata sandi</option>
+            </select>
+          </div>
+          <div class="field full" id="forgotUsernameFields"><label for="forgotPasswordUsername">Username</label><input class="input" id="forgotPasswordUsername" type="text" placeholder="Masukkan username" autocomplete="username" /></div>
+          <div class="field full" id="forgotChairFields" hidden>
+            <div class="form-grid">
+              <div class="field full"><label for="forgotChairPhone">Nomor WhatsApp Ketua</label><input class="input preserve-zero" id="forgotChairPhone" type="text" inputmode="numeric" autocomplete="tel" placeholder="08xxxxxxxxxx" /></div>
+              <div class="field full"><label for="forgotChairClassName">Nama kelas</label><input class="input" id="forgotChairClassName" type="text" placeholder="Contoh: Pasis A" /></div>
+              <div class="field"><label for="forgotChairCohortYear">Angkatan</label><input class="input preserve-zero" id="forgotChairCohortYear" type="text" inputmode="numeric" placeholder="2026" /></div>
+              <div class="field"><label for="forgotChairWave">Gelombang</label><input class="input" id="forgotChairWave" type="text" placeholder="Gelombang 1" /></div>
+            </div>
+          </div>
+          <div class="field full"><label for="forgotPasswordNote">Catatan untuk Team IT</label><textarea class="textarea" id="forgotPasswordNote" placeholder="Tambahkan informasi yang membantu Team IT memverifikasi akun."></textarea></div>
+          <div class="password-guidance full">Permintaan Ketua Kelas akan dicocokkan dengan tab Data Kelas. Setelah Team IT menyetujui, username dan kata sandi sementara disiapkan untuk dikirim melalui WhatsApp ketua yang tercatat.</div>
           <div class="modal-actions full">
             <button class="btn btn-secondary" type="button" data-close-modal="forgotPasswordModal">Batal</button>
             <button class="btn btn-primary" id="submitForgotPasswordBtn" type="submit">Kirim Permintaan</button>
@@ -5631,7 +5683,7 @@
       <form id="ownBankAccountForm">
         <div class="form-grid">
           <div class="field full"><label for="ownBankName">Nama bank</label><input class="input" id="ownBankName" type="text" placeholder="Contoh: BNI" required /></div>
-          <div class="field full"><label for="ownBankAccountNumber">Nomor rekening</label><input class="input" id="ownBankAccountNumber" type="text" inputmode="numeric" placeholder="Masukkan nomor rekening" required /></div>
+          <div class="field full"><label for="ownBankAccountNumber">Nomor rekening</label><input class="input preserve-zero" id="ownBankAccountNumber" type="text" inputmode="numeric" placeholder="Masukkan nomor rekening" required /></div>
           <div class="modal-actions full">
             <button class="btn btn-secondary" type="button" data-close-modal="ownBankAccountModal">Batal</button>
             <button class="btn btn-primary" id="saveOwnBankAccountBtn" type="submit">Simpan Rekening</button>
@@ -5663,6 +5715,7 @@
     const STORAGE_KEY = "bendaharaPasisAppV5";
     const REVISION_KEY = "bendaharaPasisRemoteRevisionV2";
     const DIRTY_KEY = "bendaharaPasisPendingSyncV2";
+    const MERGE_NOTICE_KEY = "bendaharaPasisMergeNoticeV1";
     const SYNC_BASE_KEY = "bendaharaPasisSyncBaseV1";
     const REMOTE_SCOPE_KEY = "bendaharaPasisRemoteScopeV1";
     const PAYLOAD_VERSION_KEY = "bendaharaPasisPayloadVersionV1";
@@ -5680,6 +5733,19 @@
     const APPLICATION_LOGO_INLINE_KEY = "bendaharaPasisApplicationLogoInlineV1";
     const CLIENT_INSTANCE_KEY = "bendaharaPasisClientInstanceV1";
     const AUTO_REFRESH_MS = 2000;
+    const SETTINGS_GLOBAL_FIELD_IDS = [
+      "settingOrgName", "settingApplicationUrl", "settingLogoFile", "uploadLogoBtn"
+    ];
+    const SETTINGS_CLASS_FIELD_IDS = [
+      "settingChairName", "settingChairPhone", "settingViceChairName", "settingViceChairPhone",
+      "settingTreasurer", "settingTreasurerPhone", "settingMonthlyFee", "settingGraduationFee",
+      "settingGraduationPeriod", "settingBudget", "settingCurrency", "settingPaymentBank",
+      "settingPaymentAccountNumber", "settingPaymentAccountName", "settingPaymentContact",
+      "settingPaymentInstructions", "settingNotifications"
+    ];
+    const SETTINGS_MAINTENANCE_FIELD_IDS = [
+      "settingMaintenanceEnabled", "settingMaintenanceTitle", "settingMaintenanceMessage", "settingMaintenanceUntil"
+    ];
     const REVISION_REQUEST_TIMEOUT_MS = 6000;
     const REMOTE_SAVE_DEBOUNCE_MS = 25;
     const FOCUS_REFRESH_THROTTLE_MS = 1500;
@@ -5921,10 +5987,13 @@
     let currentPage = "overview";
     let currentReportRows = [];
     let toastTimer = null;
+    let mergeNoticeShownFallback = false;
     let remoteRevision = 0;
     let remoteScopeKey = "";
     let localMutationVersion = 0;
     let syncTimer = null;
+    let settingsEditMode = false;
+    let settingsDraftDirty = false;
     let syncInFlight = false;
     let loadInFlight = false;
     let syncQueued = false;
@@ -6138,11 +6207,31 @@
     function setSyncPending(pending) {
       try {
         const key = scopedStorageKey(DIRTY_KEY);
-        if (pending) localStorage.setItem(key, "1");
-        else localStorage.removeItem(key);
+        if (pending) {
+          localStorage.setItem(key, "1");
+        } else {
+          localStorage.removeItem(key);
+          localStorage.removeItem(scopedStorageKey(MERGE_NOTICE_KEY));
+          mergeNoticeShownFallback = false;
+        }
       } catch (error) {
+        if (!pending) mergeNoticeShownFallback = false;
         appError("Status antrean sinkronisasi tidak dapat disimpan", error, { pending: Boolean(pending) });
       }
+    }
+
+    function showMergeToastOnce(title, message) {
+      const key = scopedStorageKey(MERGE_NOTICE_KEY);
+      try {
+        if (localStorage.getItem(key) === "1") return false;
+        localStorage.setItem(key, "1");
+      } catch (error) {
+        if (mergeNoticeShownFallback) return false;
+        mergeNoticeShownFallback = true;
+        appError("Penanda notifikasi penggabungan tidak dapat disimpan", error);
+      }
+      showToast(title, message);
+      return true;
     }
 
     function loadLastSyncedState() {
@@ -6798,58 +6887,115 @@
       if (options.focus) setTimeout(() => input.focus(), 30);
     }
 
+    let rememberVerificationSequence = 0;
+    let rememberVerificationPending = false;
+    let verifiedRememberedUsername = "";
+
+    async function verifyRememberedUsername(username, options = {}) {
+      const normalized = normalizeLoginUsername(username);
+      const input = $("#loginUsername");
+      const checkbox = $("#rememberLogin");
+      if (!normalized || !input || !checkbox) return false;
+      const sequence = ++rememberVerificationSequence;
+      verifiedRememberedUsername = "";
+      rememberVerificationPending = true;
+      setRememberedUsernameLock(false);
+      input.value = normalized;
+      updateLoginSubmitState();
+      input.setAttribute("aria-busy", "true");
+      setLoginMessage("Memverifikasi username Remember ke database...");
+
+      try {
+        const result = await requestDatabase(
+          { action: "validateRememberUsername", username: normalized },
+          { timeoutMs: SESSION_REQUEST_TIMEOUT_MS, suppressAuthHandling: true }
+        );
+        if (sequence !== rememberVerificationSequence || normalizeLoginUsername(input.value) !== normalized) return false;
+        if (!result.exists || !result.active || normalizeLoginUsername(result.username) !== normalized) {
+          throw Object.assign(new Error("Username Remember tidak ditemukan atau sudah tidak aktif."), { code: "REMEMBER_NOT_FOUND" });
+        }
+        verifiedRememberedUsername = normalized;
+        checkbox.checked = true;
+        setRememberedUsernameLock(true);
+        setLoginMessage("Username ditemukan. Masukkan kata sandi untuk melanjutkan.", true);
+        if (options.focusPassword !== false) setTimeout(() => $("#loginPassword")?.focus(), 40);
+        return true;
+      } catch (error) {
+        if (sequence !== rememberVerificationSequence) return false;
+        verifiedRememberedUsername = "";
+        setRememberedUsernameLock(false);
+        if (String(error?.code || "") === "REMEMBER_NOT_FOUND") {
+          storeRememberedUsername("");
+          checkbox.checked = false;
+          input.value = "";
+          setLoginMessage(error.message || "Username Remember tidak ditemukan.");
+          setTimeout(() => input.focus(), 30);
+        } else {
+          checkbox.checked = true;
+          setLoginMessage("Username tersimpan belum dapat diverifikasi. Periksa koneksi atau ubah akun.");
+        }
+        return false;
+      } finally {
+        if (sequence === rememberVerificationSequence) {
+          rememberVerificationPending = false;
+          input.removeAttribute("aria-busy");
+          updateLoginSubmitState();
+        }
+      }
+    }
+
     function restoreRememberedUsername(options = {}) {
       const remembered = readRememberedUsername();
       const input = $("#loginUsername");
       const checkbox = $("#rememberLogin");
       if (!input || !checkbox) return false;
+      rememberVerificationSequence += 1;
+      rememberVerificationPending = false;
+      updateLoginSubmitState();
 
       if (remembered) {
         input.value = remembered;
         checkbox.checked = true;
-        setRememberedUsernameLock(true);
-        if (options.focusPassword) setTimeout(() => $("#loginPassword")?.focus(), 40);
+        setRememberedUsernameLock(false);
+        void verifyRememberedUsername(remembered, { focusPassword: options.focusPassword !== false });
         return true;
       }
 
       checkbox.checked = false;
+      verifiedRememberedUsername = "";
       setRememberedUsernameLock(false);
       return false;
     }
 
     function handleRememberLoginChange() {
       const checkbox = $("#rememberLogin");
+      const username = normalizeLoginUsername($("#loginUsername")?.value || "");
       if (!checkbox) return;
 
-      // Pilihan Remember hanya disimpan setelah login berhasil. Tidak ada pembacaan
-      // username atau request database sebelum tombol Masuk ke Aplikasi diklik.
       if (!checkbox.checked) {
+        rememberVerificationSequence += 1;
+        rememberVerificationPending = false;
+        verifiedRememberedUsername = "";
         storeRememberedUsername("");
         setRememberedUsernameLock(false);
+        setLoginMessage("");
+        return;
       }
-      setLoginMessage("");
+
+      if (username) void verifyRememberedUsername(username, { focusPassword: false });
+      else setLoginMessage("Masukkan username terlebih dahulu. Username akan diverifikasi sebelum dikunci.");
     }
 
     async function validateStoredRememberedUsername() {
       const username = readRememberedUsername();
-      if (!username || !navigator.onLine) return;
-      try {
-        const result = await requestDatabase(
-          { action: "validateRememberUsername", username },
-          { timeoutMs: SESSION_REQUEST_TIMEOUT_MS, suppressAuthHandling: true }
-        );
-        if (result.exists && result.active) return;
-        storeRememberedUsername("");
-        const checkbox = $("#rememberLogin");
-        if (checkbox) checkbox.checked = false;
-        setRememberedUsernameLock(false, { clearValue: true });
-        await informationPopup("Remember dibatalkan", "Username yang tersimpan tidak lagi ditemukan atau sudah tidak aktif di database.");
-      } catch {
-        // Gangguan koneksi tidak menghapus username yang sebelumnya sudah terverifikasi.
-      }
+      if (!username) return false;
+      return verifyRememberedUsername(username, { focusPassword: true });
     }
 
     function unlockRememberedUsername() {
+      rememberVerificationSequence += 1;
+      rememberVerificationPending = false;
+      verifiedRememberedUsername = "";
       storeRememberedUsername("");
       const checkbox = $("#rememberLogin");
       if (checkbox) checkbox.checked = false;
@@ -7073,7 +7219,7 @@
     function updateLoginSubmitState() {
       const button = $("#loginSubmit");
       if (!button) return;
-      const blocked = loginStartupCheck || loginBusy;
+      const blocked = loginStartupCheck || loginBusy || rememberVerificationPending;
       button.disabled = blocked;
       button.setAttribute("aria-disabled", String(blocked));
       button.classList.toggle("is-busy", blocked);
@@ -7609,6 +7755,8 @@
       loadInFlight = false;
       revisionPollInFlight = false;
       activeItClassId = "";
+      settingsEditMode = false;
+      settingsDraftDirty = false;
       try { sessionStorage.removeItem(IT_SELECTED_CLASS_SESSION_KEY); } catch {}
       currentAuthUser = storageSafeAuthenticationUser(user || {});
       baseAuthUser = storageSafeAuthenticationUser(currentAuthUser);
@@ -7691,6 +7839,8 @@
       document.body.classList.add("auth-locked");
       document.body.classList.remove("read-only-mode", "pasis-mode", "maintenance-manager", "it-team-mode", "it-portal-mode", "sidebar-open");
       activeItClassId = "";
+      settingsEditMode = false;
+      settingsDraftDirty = false;
       baseAuthUser = null;
       try { sessionStorage.removeItem(IT_SELECTED_CLASS_SESSION_KEY); } catch {}
       stopOnlineUsersMonitoring();
@@ -7701,9 +7851,9 @@
       setLoginMessage(message);
       applyApplicationBranding(state?.settings?.organizationName || "");
       void refreshPublicBranding();
-      const hasRememberedUsername = restoreRememberedUsername();
+      const hasRememberedUsername = restoreRememberedUsername({ focusPassword: true });
       updateLoginSubmitState();
-      setTimeout(() => (hasRememberedUsername ? $("#loginPassword") : $("#loginUsername"))?.focus(), 50);
+      if (!hasRememberedUsername) setTimeout(() => $("#loginUsername")?.focus(), 50);
     }
 
     function handleAuthenticationExpired(message = "Sesi login telah berakhir. Silakan masuk kembali.") {
@@ -8713,7 +8863,7 @@
           applySettingsToUI();
           renderAll();
           setDatabaseStatus("pending", "Konflik revisi terdeteksi. Data lokal dan Google Sheets digabungkan lalu dikirim ulang.");
-          showToast(
+          showMergeToastOnce(
             "Data digabungkan",
             "Perubahan lokal dipertahankan dan akan dikirim ulang pada revisi database terbaru."
           );
@@ -8897,7 +9047,7 @@
           renderAll();
           reportStateWarnings(result);
           setDatabaseStatus("pending", "Data lokal dan Google Sheets digabungkan. Mengirim hasil penggabungan...");
-          showToast(
+          showMergeToastOnce(
             "Data lokal dipertahankan",
             "Perubahan offline digabungkan dengan database terbaru dan akan dikirim ulang."
           );
@@ -9440,25 +9590,62 @@
       }
     }
 
-    function applySettingsToUI() {
+    function canEditSettingsPage() {
+      return ["it_team", "class_chair", "class_treasurer"].includes(normalizedRole(currentAuthUser?.role));
+    }
+
+    function setSettingsControlDisabled(id, disabled) {
+      const element = $("#" + id);
+      if (!element) return;
+      element.disabled = Boolean(disabled);
+    }
+
+    function applySettingsEditability() {
+      const page = $("#page-pengaturan");
+      const allowed = canEditSettingsPage();
+      const globalAllowed = allowed && isItTeam();
+      const classAllowed = allowed && !isItPortalMode();
+      const maintenanceAllowed = allowed && isMaintenanceManager();
+      SETTINGS_GLOBAL_FIELD_IDS.forEach(id => setSettingsControlDisabled(id, !settingsEditMode || !globalAllowed));
+      SETTINGS_CLASS_FIELD_IDS.forEach(id => setSettingsControlDisabled(id, !settingsEditMode || !classAllowed));
+      SETTINGS_MAINTENANCE_FIELD_IDS.forEach(id => setSettingsControlDisabled(id, !settingsEditMode || !maintenanceAllowed));
+      setSettingsControlDisabled("settingCompact", true);
+      if (page) {
+        page.classList.toggle("settings-editing", settingsEditMode);
+        page.classList.toggle("settings-locked", !settingsEditMode);
+      }
+      const editButton = $("#editSettingsBtn");
+      const saveButton = $("#saveSettingsBtn");
+      const cancelButton = $("#cancelSettingsBtn");
+      const status = $("#settingsEditStatus");
+      if (editButton) {
+        editButton.hidden = settingsEditMode || !allowed;
+        editButton.textContent = isItPortalMode() ? "Edit Branding Global" : "Edit Pengaturan";
+      }
+      if (saveButton) {
+        saveButton.hidden = !settingsEditMode || !allowed;
+        saveButton.textContent = isItPortalMode() ? "Simpan Branding Global" : "Simpan Perubahan";
+      }
+      if (cancelButton) cancelButton.hidden = !settingsEditMode || !allowed;
+      if (status) {
+        status.textContent = settingsEditMode ? (settingsDraftDirty ? "Sedang diedit · belum disimpan" : "Mode edit aktif") : "Mode baca";
+        status.classList.toggle("editing", settingsEditMode);
+      }
+    }
+
+    function applySettingsToUI(options = {}) {
       applyGlobalBrandingToState();
       applyApplicationBranding(globalBranding.organizationName);
       $(".profile-copy strong").textContent = authenticatedDisplayName();
-      $("#settingOrgName").value = globalBranding.organizationName;
-      $("#settingApplicationUrl").value = globalBranding.applicationUrl || (location.origin + location.pathname);
       const canEditGlobalBranding = isItTeam();
-      const globalPortalOnly = isItPortalMode();
       $$('[data-global-branding-admin]').forEach(element => { element.hidden = !canEditGlobalBranding; });
       if ($("#globalBrandingManagedNotice")) $("#globalBrandingManagedNotice").hidden = canEditGlobalBranding;
-      const classSettingIds = [
-        "settingChairName", "settingChairPhone", "settingViceChairName", "settingViceChairPhone",
-        "settingTreasurer", "settingTreasurerPhone", "settingMonthlyFee", "settingGraduationFee",
-        "settingGraduationPeriod", "settingBudget", "settingCurrency", "settingPaymentBank",
-        "settingPaymentAccountNumber", "settingPaymentAccountName", "settingPaymentContact",
-        "settingPaymentInstructions", "settingNotifications", "settingCompact"
-      ];
-      classSettingIds.forEach(id => { if ($("#" + id)) $("#" + id).disabled = globalPortalOnly; });
-      if ($("#saveSettingsBtn")) $("#saveSettingsBtn").textContent = globalPortalOnly ? "Simpan Branding Global" : "Simpan Pengaturan";
+      if (settingsEditMode && settingsDraftDirty && options.force !== true) {
+        applySettingsEditability();
+        return;
+      }
+      $("#settingOrgName").value = globalBranding.organizationName;
+      $("#settingApplicationUrl").value = globalBranding.applicationUrl || (location.origin + location.pathname);
       renderSettingLogoPreview();
       if ($("#settingMaintenanceEnabled")) $("#settingMaintenanceEnabled").checked = !!state.settings.maintenanceEnabled;
       if ($("#settingMaintenanceTitle")) $("#settingMaintenanceTitle").value = state.settings.maintenanceTitle || "Aplikasi sedang maintenance";
@@ -9484,6 +9671,24 @@
       $("#settingNotifications").checked = !!state.settings.notifications;
       $("#settingCompact").checked = false;
       document.body.classList.remove("sidebar-mini");
+      applySettingsEditability();
+    }
+
+    function beginSettingsEdit() {
+      if (!canEditSettingsPage()) return;
+      applySettingsToUI({ force: true });
+      settingsEditMode = true;
+      settingsDraftDirty = false;
+      applySettingsEditability();
+      const firstEditable = $("#page-pengaturan input:not(:disabled), #page-pengaturan select:not(:disabled), #page-pengaturan textarea:not(:disabled)");
+      if (firstEditable) firstEditable.focus();
+    }
+
+    function cancelSettingsEdit(showMessage = true) {
+      settingsEditMode = false;
+      settingsDraftDirty = false;
+      applySettingsToUI({ force: true });
+      if (showMessage) showToast("Perubahan dibatalkan", "Nilai pengaturan dikembalikan ke data terakhir yang tersimpan.");
     }
 
     function getPageHeading(page) {
@@ -9828,7 +10033,7 @@
           <td><span class="badge ${member.status === "Aktif" ? "green" : "amber"}">${escapeHtml(member.status)}</span></td>
           <td><div class="primary-cell"><strong>${escapeHtml(member.loginUsername || "Belum dibuat")}</strong><span class="badge ${member.loginEnabled ? "green" : "red"}">${member.loginEnabled ? "Aktif" : "Nonaktif"}</span></div></td>
           <td><span class="badge ${member.dues === "Lunas" ? "green" : "red"}">${escapeHtml(member.dues)}</span></td>
-          <td><div class="actions"><button class="btn btn-secondary btn-sm" data-view-member-card="${member.id}" type="button">Kartu</button><button class="btn btn-primary btn-sm" data-share-member-login="${member.id}" type="button">WhatsApp</button><button class="btn btn-secondary btn-sm" data-edit-member="${member.id}" type="button">Edit</button><button class="btn btn-danger btn-sm" data-delete-member="${member.id}" type="button">Hapus</button></div></td>
+          <td><div class="actions"><button class="btn btn-secondary btn-sm" data-view-member-card="${member.id}" type="button">Kartu</button><button class="btn btn-primary btn-sm" data-share-member-login="${member.id}" type="button">WhatsApp</button><button class="btn btn-secondary btn-sm" data-edit-member="${member.id}" type="button">Edit Data</button><button class="btn btn-danger btn-sm" data-delete-member="${member.id}" type="button">Hapus</button></div></td>
         </tr>
       `;
     }
@@ -9970,6 +10175,7 @@
       $("#memberLoginEnabled").checked = true;
       $("#memberLoginUsername").value = "";
       $("#memberLoginPassword").value = "";
+      if ($("#memberSubmitBtn")) $("#memberSubmitBtn").textContent = "Tambah Anggota";
 
       if (id !== null) {
         const member = state.members.find(item => item.id === Number(id));
@@ -9985,6 +10191,7 @@
         $("#memberLoginUsername").value = member.loginUsername || "";
         $("#memberLoginEnabled").checked = member.loginEnabled !== false;
         $("#memberLoginPassword").value = "";
+        if ($("#memberSubmitBtn")) $("#memberSubmitBtn").textContent = "Simpan Perubahan";
       }
 
       openModal("memberModal");
@@ -10198,8 +10405,21 @@
 
     $("#loginForm").addEventListener("submit", event => event.preventDefault());
     $("#rememberLogin").addEventListener("change", handleRememberLoginChange);
+    $("#loginUsername").addEventListener("input", () => {
+      if ($("#loginUsername")?.readOnly) return;
+      rememberVerificationSequence += 1;
+      rememberVerificationPending = false;
+      verifiedRememberedUsername = "";
+      updateLoginSubmitState();
+      if ($("#rememberLogin")?.checked) setLoginMessage("Username akan diverifikasi sebelum Remember menguncinya.");
+    });
+    $("#loginUsername").addEventListener("blur", () => {
+      const username = normalizeLoginUsername($("#loginUsername")?.value || "");
+      if ($("#rememberLogin")?.checked && username && !$("#loginUsername")?.readOnly) {
+        void verifyRememberedUsername(username, { focusPassword: false });
+      }
+    });
     $("#unlockRememberedUsername").addEventListener("click", unlockRememberedUsername);
-    restoreRememberedUsername();
     $("#loginSubmit").addEventListener("click", submitLogin);
     // Enter sengaja tidak memicu login: kredensial hanya diproses setelah tombol diklik.
     setTimeout(updateLoginSubmitState, 80);
@@ -10811,7 +11031,7 @@
         showToast("Anggota tidak dapat disimpan", error.message);
       } finally {
         submitButton.disabled = false;
-        submitButton.textContent = "Simpan Anggota";
+        submitButton.textContent = existingId ? "Simpan Perubahan" : "Tambah Anggota";
       }
     });
 
@@ -10945,8 +11165,21 @@
       event.target.value = digits ? new Intl.NumberFormat("id-ID").format(Number(digits)) : "";
     }));
 
+    $("#editSettingsBtn")?.addEventListener("click", beginSettingsEdit);
+    $("#cancelSettingsBtn")?.addEventListener("click", () => cancelSettingsEdit(true));
+    $("#page-pengaturan")?.addEventListener("input", event => {
+      if (!settingsEditMode || !event.target.matches("input, select, textarea")) return;
+      settingsDraftDirty = true;
+      applySettingsEditability();
+    });
+    $("#page-pengaturan")?.addEventListener("change", event => {
+      if (!settingsEditMode || !event.target.matches("input, select, textarea")) return;
+      settingsDraftDirty = true;
+      applySettingsEditability();
+    });
     $("#saveSettingsBtn").addEventListener("click", async () => {
       const button = $("#saveSettingsBtn");
+      if (!settingsEditMode) { beginSettingsEdit(); return; }
       button.disabled = true;
       button.textContent = "Menyimpan...";
       try {
@@ -10957,15 +11190,14 @@
             applicationUrl: $("#settingApplicationUrl").value.trim() || (location.origin + location.pathname)
           }, { timeoutMs: WRITE_REQUEST_TIMEOUT_MS });
           applyGlobalBrandingPayload(result.branding, result.brandingRevision);
-          remoteRevision = Number(result.revision) || remoteRevision;
           if (isItPortalMode()) {
-            cacheState();
-            applySettingsToUI();
+            remoteRevision = Number(result.revision) || remoteRevision;
+            cacheState(); settingsEditMode = false; settingsDraftDirty = false;
+            applySettingsToUI({ force: true });
             showToast("Branding global disimpan", "Logo perusahaan dan link aplikasi berlaku untuk seluruh kelas.");
             return;
           }
         }
-
         applyGlobalBrandingToState();
         if (isMaintenanceManager()) {
           state.settings.maintenanceEnabled = !!$("#settingMaintenanceEnabled")?.checked;
@@ -10974,15 +11206,15 @@
           state.settings.maintenanceUntil = $("#settingMaintenanceUntil")?.value || "";
         }
         state.settings.chairName = $("#settingChairName").value.trim();
-        state.settings.chairPhone = $("#settingChairPhone").value.trim();
+        state.settings.chairPhone = String($("#settingChairPhone").value || "").trim();
         state.settings.viceChairName = $("#settingViceChairName").value.trim();
-        state.settings.viceChairPhone = $("#settingViceChairPhone").value.trim();
+        state.settings.viceChairPhone = String($("#settingViceChairPhone").value || "").trim();
         state.settings.treasurerName = $("#settingTreasurer").value.trim() || "Bendahara";
-        state.settings.treasurerPhone = $("#settingTreasurerPhone").value.trim();
+        state.settings.treasurerPhone = String($("#settingTreasurerPhone").value || "").trim();
         state.settings.paymentBank = $("#settingPaymentBank").value.trim();
-        state.settings.paymentAccountNumber = $("#settingPaymentAccountNumber").value.trim();
+        state.settings.paymentAccountNumber = String($("#settingPaymentAccountNumber").value || "").trim();
         state.settings.paymentAccountName = $("#settingPaymentAccountName").value.trim();
-        state.settings.paymentContact = $("#settingPaymentContact").value.trim();
+        state.settings.paymentContact = String($("#settingPaymentContact").value || "").trim();
         state.settings.paymentInstructions = $("#settingPaymentInstructions").value.trim();
         state.settings.monthlyFee = Number($("#settingMonthlyFee").value.replace(/\D/g, "")) || 0;
         state.settings.graduationFee = Number($("#settingGraduationFee").value.replace(/\D/g, "")) || 0;
@@ -10993,19 +11225,23 @@
         state.settings.compactSidebar = false;
         $("#settingCompact").checked = false;
         saveState();
-        applySettingsToUI();
-        renderAll();
-        showToast("Pengaturan disimpan", isItTeam()
-          ? "Logo perusahaan dan link aplikasi global berlaku untuk seluruh kelas."
-          : "Pengaturan keuangan kelas berhasil diperbarui.");
+        clearTimeout(syncTimer);
+        await performRemoteSave(true);
+        if (isSyncPending()) {
+          settingsDraftDirty = true; applySettingsEditability();
+          showToast("Perubahan masih menunggu", "Draft tidak dihapus. Periksa koneksi lalu tekan Simpan Perubahan kembali.");
+          return;
+        }
+        settingsEditMode = false; settingsDraftDirty = false;
+        applySettingsToUI({ force: true }); renderAll();
+        showToast("Pengaturan disimpan", isItTeam() ? "Logo perusahaan, link global, dan pengaturan kelas berhasil diperbarui." : "Pengaturan keuangan kelas berhasil diperbarui.");
       } catch (error) {
+        settingsDraftDirty = true; applySettingsEditability();
         showToast("Pengaturan belum tersimpan", error.message || "Periksa koneksi database utama.");
       } finally {
-        button.disabled = false;
-        button.textContent = isItPortalMode() ? "Simpan Branding Global" : "Simpan Pengaturan";
+        button.disabled = false; applySettingsEditability();
       }
     });
-
 
     function readImageAsDataUrl(file) {
       return new Promise((resolve, reject) => {
@@ -11147,7 +11383,9 @@
         <div class="reset-request-card">
           <div>
             <strong>${escapeHtml(item.name || item.username || "Akun")}</strong>
-            <span>Username: ${escapeHtml(item.username || "-")} · ${escapeHtml(formatDateTimeSafe(item.requestedAt) || "-")}</span>
+            <span>${item.recoveryType === "chair_credentials" ? "Pemulihan username & password Ketua Kelas" : "Reset kata sandi"} · ${escapeHtml(formatDateTimeSafe(item.requestedAt) || "-")}</span>
+            <span>Username internal: ${escapeHtml(item.username || "-")}${item.className ? " · " + escapeHtml([item.className, item.cohortYear ? "Angkatan " + item.cohortYear : "", item.wave || ""].filter(Boolean).join(" · ")) : ""}</span>
+            ${item.phone ? `<span>WhatsApp: ${escapeHtml(String(item.phone))}</span>` : ""}
             ${item.requestNote ? `<span>Catatan: ${escapeHtml(item.requestNote)}</span>` : ""}
           </div>
           <div class="reset-request-actions">
@@ -11178,7 +11416,7 @@
       const agreed = await confirmPopup(
         approving ? "Setujui Reset Kata Sandi" : "Tolak Permintaan",
         approving
-          ? "Sistem akan membuat kata sandi sementara baru, mencabut sesi lama, lalu menyiapkan pesan WhatsApp untuk " + (requestItem.name || requestItem.username) + "."
+          ? "Sistem akan menyiapkan username, membuat kata sandi sementara baru, mencabut sesi lama, lalu menyiapkan pesan WhatsApp untuk " + (requestItem.name || requestItem.username) + "."
           : "Permintaan reset milik " + (requestItem.name || requestItem.username) + " akan ditolak.",
         approving ? "Proses Persetujuan" : "Tolak Permintaan"
       );
@@ -11209,7 +11447,7 @@
           const message = [
             "Assalamualaikum " + targetName + ",",
             "",
-            "Permintaan lupa kata sandi Anda telah disetujui Team IT.",
+            "Permintaan pemulihan akun Anda telah disetujui Team IT.",
             "Link aplikasi: " + applicationShareUrl(),
             "Username: " + (result.username || requestItem.username || ""),
             "Kata sandi sementara: " + (result.temporaryPassword || ""),
@@ -11246,31 +11484,63 @@
       if (reject) reviewPasswordReset(reject.dataset.resetReject, "reject");
     });
 
+    function updateForgotRecoveryMode() {
+      const chairMode = $("#forgotRecoveryType")?.value === "chair_credentials";
+      if ($("#forgotUsernameFields")) $("#forgotUsernameFields").hidden = chairMode;
+      if ($("#forgotChairFields")) $("#forgotChairFields").hidden = !chairMode;
+      if ($("#forgotPasswordUsername")) $("#forgotPasswordUsername").required = !chairMode;
+      ["#forgotChairPhone", "#forgotChairClassName", "#forgotChairCohortYear", "#forgotChairWave"].forEach(selector => {
+        if ($(selector)) $(selector).required = chairMode;
+      });
+    }
+
+    $("#forgotRecoveryType")?.addEventListener("change", updateForgotRecoveryMode);
+
     $("#forgotPasswordBtn")?.addEventListener("click", () => {
+      $("#forgotPasswordForm")?.reset();
       $("#forgotPasswordUsername").value = normalizeLoginUsername($("#loginUsername")?.value || "");
-      $("#forgotPasswordNote").value = "";
+      $("#forgotRecoveryType").value = "password";
+      updateForgotRecoveryMode();
       openModal("forgotPasswordModal");
       setTimeout(() => $("#forgotPasswordUsername")?.focus(), 50);
     });
 
     $("#forgotPasswordForm")?.addEventListener("submit", async event => {
       event.preventDefault();
+      const recoveryType = $("#forgotRecoveryType").value === "chair_credentials" ? "chair_credentials" : "password";
       const username = normalizeLoginUsername($("#forgotPasswordUsername").value);
       const note = $("#forgotPasswordNote").value.trim();
-      if (!username) {
-        showToast("Username belum diisi", "Masukkan username akun yang ingin dipulihkan.");
-        return;
+      const payload = { action: "requestPasswordReset", recoveryType, note };
+      if (recoveryType === "chair_credentials") {
+        payload.phone = String($("#forgotChairPhone").value || "").replace(/\D/g, "");
+        payload.className = $("#forgotChairClassName").value.trim();
+        payload.cohortYear = $("#forgotChairCohortYear").value.trim();
+        payload.wave = $("#forgotChairWave").value.trim();
+        if (!payload.phone || !payload.className || !payload.cohortYear || !payload.wave) {
+          showToast("Data belum lengkap", "Isi nomor WhatsApp, nama kelas, angkatan, dan gelombang.");
+          return;
+        }
+      } else {
+        if (!username) {
+          showToast("Username belum diisi", "Masukkan username akun yang ingin dipulihkan.");
+          return;
+        }
+        payload.username = username;
       }
+
       const button = $("#submitForgotPasswordBtn");
       button.disabled = true;
       button.textContent = "Mengirim permintaan...";
       try {
-        const result = await requestDatabase(
-          { action: "requestPasswordReset", username, note },
-          { timeoutMs: WRITE_REQUEST_TIMEOUT_MS, suppressAuthHandling: true }
-        );
+        const result = await requestDatabase(payload, {
+          timeoutMs: WRITE_REQUEST_TIMEOUT_MS,
+          suppressAuthHandling: true
+        });
         closeModal("forgotPasswordModal");
-        await informationPopup("Permintaan terkirim", result.message || "Permintaan menunggu persetujuan Team IT.");
+        await informationPopup(
+          "Permintaan terkirim",
+          (result.message || "Permintaan menunggu persetujuan Team IT.") + "\n\nID Permintaan: " + (result.requestId || "-")
+        );
       } catch (error) {
         showToast("Permintaan tidak terkirim", error.message);
       } finally {
@@ -11424,6 +11694,19 @@
         ? "Ada perubahan lokal yang menunggu sinkronisasi."
         : "Menyiapkan koneksi ke Google Sheets..."
     );
+    function normalizePreservedNumberInput(input) {
+      if (!input) return;
+      // Selalu menjaga nilai sebagai string. Tidak pernah menggunakan Number()/parseInt(),
+      // sehingga 0 pada awal nomor tetap dipertahankan di state dan payload API.
+      const cleaned = String(input.value || "").replace(/[^0-9+() .-]/g, "");
+      if (cleaned !== input.value) input.value = cleaned;
+    }
+
+    document.querySelectorAll(".preserve-zero").forEach(input => {
+      input.setAttribute("type", "text");
+      input.addEventListener("input", () => normalizePreservedNumberInput(input));
+    });
+
     window.addEventListener("load", initializeAuthentication, { once: true });
     window.addEventListener("online", () => {
       if (!authSessionToken) return;
@@ -11882,7 +12165,7 @@ document.body.classList.remove("sidebar-mini");
                     ${String(member.status || "").toLowerCase() === "cuti" && memberTotalRefundAvailable(member.id) > 0 ? `<button class="btn btn-danger btn-sm" data-refund-member="${member.id}" type="button">Refund</button>` : ""}
                     <button class="btn btn-secondary btn-sm" data-view-member-card="${member.id}" type="button">Kartu</button>
                     <button class="btn btn-primary btn-sm" data-share-member-login="${member.id}" type="button">WhatsApp</button>
-                    <button class="btn btn-secondary btn-sm" data-edit-member="${member.id}" type="button">Edit</button>
+                    <button class="btn btn-secondary btn-sm" data-edit-member="${member.id}" type="button">Edit Data</button>
                     <button class="btn btn-danger btn-sm" data-delete-member="${member.id}" type="button">Hapus</button>
                   </div>
                 </td>
