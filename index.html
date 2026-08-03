@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>Keuangan Pasis — V38.1 Multi-Kelas</title>
+  <title>Keuangan Pasis — V38.4 Branding Global</title>
   <meta name="description" content="Platform manajemen keuangan Pasis multi-kelas dengan provisioning database otomatis." />
-  <meta name="application-version" content="38.1-login-registration-fix" />
+  <meta name="application-version" content="38.4-global-company-branding" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -3759,6 +3759,74 @@
     @media (max-width: 520px) {
       .registration-summary { grid-template-columns: 1fr; }
     }
+
+
+    /* =========================
+       V38.4 TEAM IT PORTAL, GLOBAL BRANDING & CLASS SWITCHER
+    ========================= */
+    .it-class-switcher {
+      display: none;
+      margin: 14px 0 18px;
+      padding: 13px;
+      border: 1px solid rgba(96, 165, 250, .16);
+      border-radius: 15px;
+      background: linear-gradient(145deg, rgba(18, 31, 53, .78), rgba(8, 15, 28, .88));
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.03);
+    }
+    .it-class-switcher.show { display: block; }
+    .it-class-switcher-label { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 8px; }
+    .it-class-switcher-label strong { color: #dbeafe; font-size: 9px; letter-spacing: .08em; text-transform: uppercase; }
+    .it-class-switcher-label span { color: var(--subtle); font-size: 8px; }
+    .it-class-select {
+      width: 100%; height: 42px; padding: 0 10px;
+      border: 1px solid var(--line); border-radius: 10px;
+      background: rgba(5, 10, 20, .78); color: var(--text); font-size: 10px;
+    }
+    .it-class-switcher-actions { display: grid; grid-template-columns: 1fr auto; gap: 7px; margin-top: 8px; }
+    .it-class-switcher-actions .btn { min-width: 0; padding-inline: 10px; }
+    .it-portal-hero {
+      display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(280px, .65fr);
+      gap: 14px; margin-bottom: 14px;
+    }
+    .it-portal-welcome {
+      min-height: 230px; padding: 26px;
+      border: 1px solid rgba(96,165,250,.25); border-radius: 22px;
+      background: radial-gradient(circle at 90% 15%, rgba(96,165,250,.2), transparent 29%), linear-gradient(145deg, rgba(25,54,105,.88), rgba(8,18,38,.96));
+      box-shadow: 0 24px 60px rgba(0,0,0,.28);
+    }
+    .it-portal-welcome .panel-kicker { font-size: 9px; }
+    .it-portal-welcome h2 { margin-top: 8px; font-family: "Plus Jakarta Sans", sans-serif; font-size: clamp(24px,3vw,36px); letter-spacing: -.045em; }
+    .it-portal-welcome p { max-width: 620px; margin-top: 10px; color: #b8c7dc; font-size: 11px; line-height: 1.75; }
+    .it-portal-welcome .toolbar-actions { margin-top: 22px; }
+    .it-portal-summary { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 10px; }
+    .it-portal-summary .mini-stat { min-height: 105px; }
+    .it-class-directory-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 11px; margin-top: 16px; }
+    .it-class-card {
+      display: flex; min-width: 0; min-height: 150px; flex-direction: column;
+      padding: 16px; border: 1px solid var(--line); border-radius: 15px;
+      background: linear-gradient(150deg, rgba(15,23,42,.76), rgba(8,13,24,.9));
+      transition: var(--ease);
+    }
+    .it-class-card:hover { border-color: rgba(96,165,250,.34); transform: translateY(-2px); }
+    .it-class-card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; }
+    .it-class-card h3 { overflow: hidden; color: #dbeafe; font-size: 12px; text-overflow: ellipsis; white-space: nowrap; }
+    .it-class-card p { margin-top: 5px; color: var(--subtle); font-size: 9px; line-height: 1.55; }
+    .it-class-card-meta { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 12px; }
+    .it-class-card-meta span { padding: 4px 7px; border: 1px solid var(--line); border-radius: 999px; color: var(--muted); font-size: 8px; }
+    .it-class-card .btn { width: 100%; margin-top: auto; }
+    .it-directory-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+    .it-directory-toolbar .search { display: flex; width: min(340px,100%); }
+    body.it-portal-mode .class-context-chip { display: none !important; }
+    body.it-portal-mode [data-class-only-nav] { display: none !important; }
+    @media (max-width: 1050px) {
+      .it-portal-hero { grid-template-columns: 1fr; }
+      .it-class-directory-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+    }
+    @media (max-width: 720px) {
+      .it-class-directory-grid { grid-template-columns: 1fr; }
+      .it-directory-toolbar { align-items: stretch; flex-direction: column; }
+      .it-directory-toolbar .search { width: 100%; }
+    }
 </style>
 </head>
 
@@ -3870,9 +3938,24 @@
     <div class="sidebar-menu-scroll">
       <div class="sidebar-divider"></div>
 
+      <section class="it-class-switcher" id="itClassSwitcher" hidden>
+        <div class="it-class-switcher-label"><strong>Pilih Data Kelas</strong><span id="itClassCountLabel">0 kelas</span></div>
+        <select class="it-class-select" id="itClassSelect" aria-label="Pilih kelas yang akan dikontrol">
+          <option value="">Team IT — Semua Kelas</option>
+        </select>
+        <div class="it-class-switcher-actions">
+          <button class="btn btn-primary btn-sm" id="openSelectedItClassBtn" type="button">Buka Kelas</button>
+          <button class="btn btn-secondary btn-sm" id="returnItPortalBtn" type="button" title="Kembali ke dashboard Team IT">Portal IT</button>
+        </div>
+      </section>
+
       <section class="sidebar-group">
         <p class="sidebar-label">RINGKASAN</p>
         <nav class="nav" aria-label="Menu ringkasan">
+        <button class="nav-btn" data-page="it-dashboard" data-it-dashboard-nav type="button" hidden>
+          <span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M4 5h16v14H4z"></path><path d="M8 9h3v3H8z"></path><path d="M14 9h2"></path><path d="M14 12h2"></path><path d="M8 16h8"></path></svg></span>
+          <span class="nav-text">Data Kelas</span>
+        </button>
         <button class="nav-btn active" data-page="overview" type="button">
           <span class="nav-icon">
             <svg viewBox="0 0 24 24">
@@ -4061,6 +4144,37 @@
     </header>
 
     <div class="content">
+      <!-- DASHBOARD TEAM IT -->
+      <section class="page" id="page-it-dashboard">
+        <div class="it-portal-hero">
+          <article class="it-portal-welcome">
+            <p class="panel-kicker">MULTI-CLASS CONTROL CENTER</p>
+            <h2>Portal Team IT</h2>
+            <p>Kelola pendaftaran, kesehatan sistem, dan akses seluruh kelas dari satu portal ringan. Data keuangan kelas baru dimuat setelah kelas dipilih, sehingga login tetap cepat meskipun jumlah kelas terus bertambah.</p>
+            <div class="toolbar-actions">
+              <button class="btn btn-primary" id="itDashboardReviewBtn" type="button">Tinjau Pendaftaran</button>
+              <button class="btn btn-secondary" id="itDashboardLogsBtn" type="button">Buka Log Aktivitas</button>
+              <button class="btn btn-secondary" id="refreshItClassDirectoryBtn" type="button">Muat Ulang Kelas</button>
+            </div>
+          </article>
+          <div class="it-portal-summary">
+            <div class="mini-stat"><span>Kelas aktif</span><strong id="itSummaryActiveClasses">0</strong></div>
+            <div class="mini-stat"><span>Angkatan</span><strong id="itSummaryCohorts">0</strong></div>
+            <div class="mini-stat"><span>Estimasi Pasis</span><strong id="itSummaryMembers">0</strong></div>
+            <div class="mini-stat"><span>Menunggu konfirmasi</span><strong id="itSummaryPending">0</strong></div>
+          </div>
+        </div>
+        <article class="panel panel-pad">
+          <div class="it-directory-toolbar">
+            <div><p class="panel-kicker">DATABASE UTAMA</p><h3>Data Kelas</h3><p>Setiap baris berasal dari tab Data Kelas di database utama dan terhubung ke satu spreadsheet keuangan.</p></div>
+            <label class="search"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-4-4"></path></svg><input id="itClassSearch" type="search" placeholder="Cari kelas atau nama spreadsheet..." autocomplete="off" /></label>
+          </div>
+          <div class="it-class-directory-grid" id="itClassDirectoryGrid">
+            <div class="empty show"><strong>Memuat daftar kelas</strong><span>Direktori lokal akan tampil lebih dahulu lalu diperbarui dari server.</span></div>
+          </div>
+        </article>
+      </section>
+
       <!-- OVERVIEW -->
       <section class="page active" id="page-overview">
         <div class="fund-overview-grid" id="fundOverviewGrid">
@@ -4837,9 +4951,12 @@
           <article class="panel panel-pad">
             <div class="panel-head"><div><p class="panel-kicker">IDENTITAS DAN KEUANGAN</p><h3>Pengaturan Utama</h3><p>Nilai ini digunakan pada seluruh halaman aplikasi.</p></div></div>
             <div class="settings-form">
-              <div class="field full"><label for="settingOrgName">Nama aplikasi/organisasi</label><input class="input" id="settingOrgName" type="text" /></div>
-              <div class="field full"><label for="settingApplicationUrl">Link aplikasi untuk dibagikan ke Pasis</label><input class="input" id="settingApplicationUrl" type="url" placeholder="https://nama-aplikasi.vercel.app" /></div>
-              <div class="field full" data-maintenance-admin>
+              <div class="field full" data-global-branding-admin><label for="settingOrgName">Nama perusahaan/platform</label><input class="input" id="settingOrgName" type="text" /></div>
+              <div class="field full" data-global-branding-admin><label for="settingApplicationUrl">Link aplikasi global untuk dibagikan ke seluruh Pasis</label><input class="input" id="settingApplicationUrl" type="url" placeholder="https://nama-aplikasi.vercel.app" /></div>
+              <div class="field full" id="globalBrandingManagedNotice" hidden>
+                <div class="password-guidance">Logo perusahaan dan link aplikasi dikelola terpusat oleh Team IT. Perubahan dari database utama otomatis berlaku untuk seluruh kelas.</div>
+              </div>
+              <div class="field full" data-global-branding-admin>
                 <label for="settingLogoFile">Logo aplikasi</label>
                 <div class="logo-setting-box">
                   <div class="logo-setting-preview-wrap">
@@ -4921,7 +5038,7 @@
           <div class="settings-form">
             <div class="field full">
               <div class="toggle-row" style="padding:0;border:0">
-                <div class="toggle-copy"><strong>Aktifkan mode maintenance</strong><span>Sesi Pasis, viewer, dan editor yang sedang aktif akan diblokir saat pemeriksaan status berikutnya.</span></div>
+                <div class="toggle-copy"><strong>Aktifkan mode maintenance</strong><span>Sesi Pasis, Wakil Kelas, dan Bendahara yang sedang aktif akan diblokir saat pemeriksaan status berikutnya.</span></div>
                 <label class="switch"><input id="settingMaintenanceEnabled" type="checkbox" /><span class="switch-track"></span></label>
               </div>
             </div>
@@ -5495,7 +5612,7 @@
       <form id="forgotPasswordForm">
         <div class="form-grid">
           <div class="field full"><label for="forgotPasswordUsername">Username</label><input class="input" id="forgotPasswordUsername" type="text" placeholder="Masukkan username" autocomplete="username" required /></div>
-          <div class="field full"><label for="forgotPasswordNote">Catatan untuk admin</label><textarea class="textarea" id="forgotPasswordNote" placeholder="Contoh: Saya lupa kata sandi dan memerlukan akun untuk melihat pembayaran."></textarea></div>
+          <div class="field full"><label for="forgotPasswordNote">Catatan untuk Team IT</label><textarea class="textarea" id="forgotPasswordNote" placeholder="Contoh: Saya lupa kata sandi dan memerlukan akun untuk melihat pembayaran."></textarea></div>
           <div class="modal-actions full">
             <button class="btn btn-secondary" type="button" data-close-modal="forgotPasswordModal">Batal</button>
             <button class="btn btn-primary" id="submitForgotPasswordBtn" type="submit">Kirim Permintaan</button>
@@ -5540,8 +5657,8 @@
        CATATAN: Karena aplikasi hanya memakai satu file HTML publik,
        URL dan API key dapat terlihat melalui source code browser.
     ========================================================== */
-    const GOOGLE_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbymaPKu2R836S-9VItiKnPvKhM_7lLVPRDnTkxT-kYfRbGt6SO4w_-A7tzLhvCboL-nAw/exec";
-    const GOOGLE_APPS_SCRIPT_API_KEY = "81b98b6051d74efeb945e09da44b64d3790d32b6040a4220bed400a89285b80c";
+    const GOOGLE_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycby6owMS6AUNl-mR4B4MO4VeVn4u9bowPYL38y9eUfKUDjtVBjgI0XLVTdaEDAJRrljCmw/exec";
+    const GOOGLE_APPS_SCRIPT_API_KEY = "93155c9b0f7441508936bfe9a1104df9637e88fcea4c4952b40b61b9598d7923";
 
     const STORAGE_KEY = "bendaharaPasisAppV5";
     const REVISION_KEY = "bendaharaPasisRemoteRevisionV2";
@@ -5549,10 +5666,12 @@
     const SYNC_BASE_KEY = "bendaharaPasisSyncBaseV1";
     const REMOTE_SCOPE_KEY = "bendaharaPasisRemoteScopeV1";
     const PAYLOAD_VERSION_KEY = "bendaharaPasisPayloadVersionV1";
-    const STATE_PAYLOAD_VERSION = 10;
+    const STATE_PAYLOAD_VERSION = 12;
     const AUTH_LOCAL_KEY = "bendaharaPasisAuthPersistentV1";
     const AUTH_SESSION_KEY = "bendaharaPasisAuthSessionV1";
     const REMEMBERED_USERNAME_KEY = "bendaharaPasisRememberedUsernameV1";
+    const IT_CLASS_DIRECTORY_CACHE_KEY = "bendaharaPasisItClassDirectoryV1";
+    const IT_SELECTED_CLASS_SESSION_KEY = "bendaharaPasisItSelectedClassV1";
     const APPLICATION_BRAND_KEY = "bendaharaPasisOrganizationNameV1";
     const APPLICATION_LOGO_KEY = "bendaharaPasisApplicationLogoV1";
     const APPLICATION_LOGO_FILE_ID_KEY = "bendaharaPasisApplicationLogoFileIdV1";
@@ -5580,6 +5699,7 @@
       "deactivateMemberAccount",
       "changePassword",
       "setMaintenanceMode",
+      "updateGlobalBranding",
       "uploadApplicationLogo",
       "updateOwnBankAccount",
       "reviewPasswordResetRequest",
@@ -5812,8 +5932,25 @@
     let autoRefreshTimer = null;
     let remoteLoaded = false;
     let publicBrandingLoaded = false;
+    let globalBrandingRevision = 0;
+    let globalBranding = {
+      organizationName: "Keuangan Pasis",
+      applicationUrl: "",
+      applicationLogoUrl: "",
+      applicationLogoFileId: "",
+      applicationLogoFileName: "",
+      applicationLogoMimeType: "",
+      applicationLogoSizeBytes: 0,
+      applicationLogoUpdatedAt: "",
+      applicationLogoInlineData: ""
+    };
     let authSessionToken = "";
     let currentAuthUser = null;
+    let baseAuthUser = null;
+    let activeItClassId = "";
+    let itClassDirectory = [];
+    let itClassDirectorySummary = {};
+    let itClassDirectoryLoadedAt = 0;
     let databaseReady = false;
     let lastDatabaseDiagnostics = null;
     let lastSyncedState = null;
@@ -5844,8 +5981,47 @@
       return JSON.parse(JSON.stringify(defaultState));
     }
 
+    function applyGlobalBrandingToState() {
+      if (!state?.settings) return;
+      Object.keys(globalBranding).forEach(key => {
+        if (Object.prototype.hasOwnProperty.call(state.settings, key)) state.settings[key] = globalBranding[key];
+      });
+    }
+
+    function applyGlobalBrandingPayload(branding = null, revision = 0) {
+      if (!branding || typeof branding !== "object") return false;
+      const incomingFileId = String(branding.applicationLogoFileId || "");
+      const preserveInlineData = incomingFileId && incomingFileId === String(globalBranding.applicationLogoFileId || "");
+      const normalized = {
+        organizationName: String(branding.organizationName || "Keuangan Pasis"),
+        applicationUrl: String(branding.applicationUrl || ""),
+        applicationLogoUrl: String(branding.applicationLogoUrl || ""),
+        applicationLogoFileId: incomingFileId,
+        applicationLogoFileName: String(branding.applicationLogoFileName || ""),
+        applicationLogoMimeType: String(branding.applicationLogoMimeType || ""),
+        applicationLogoSizeBytes: Number(branding.applicationLogoSizeBytes) || 0,
+        applicationLogoUpdatedAt: String(branding.applicationLogoUpdatedAt || ""),
+        applicationLogoInlineData: String(branding.applicationLogoInlineData || (preserveInlineData ? globalBranding.applicationLogoInlineData : ""))
+      };
+      const changed = JSON.stringify(normalized) !== JSON.stringify(globalBranding) || Number(revision || 0) !== globalBrandingRevision;
+      globalBranding = normalized;
+      globalBrandingRevision = Number(revision) || globalBrandingRevision || 1;
+      applyGlobalBrandingToState();
+      publicBrandingLoaded = true;
+      applyApplicationBranding(globalBranding.organizationName);
+      renderSettingLogoPreview();
+      if ($("#settingApplicationUrl")) $("#settingApplicationUrl").value = globalBranding.applicationUrl || (location.origin + location.pathname);
+      if ($("#settingOrgName")) $("#settingOrgName").value = globalBranding.organizationName;
+      return changed;
+    }
+
     function scopedStorageKey(baseKey) {
       return baseKey + "::" + String(activeUserCacheId || "anonymous");
+    }
+
+    function userCacheScopeId(user = currentAuthUser) {
+      const source = user || {};
+      return [source.id || source.username || "anonymous", source.classId || "master"].join("::");
     }
 
     function blankPasisState() {
@@ -6157,7 +6333,7 @@
         return copy;
       });
 
-      return stripLegacyDemoData({
+      const normalized = stripLegacyDemoData({
         transactions: normalizeRows(source.transactions),
         publicExpenses: normalizeRows(source.publicExpenses),
         publicLedgerSummary: source.publicLedgerSummary && typeof source.publicLedgerSummary === "object" ? source.publicLedgerSummary : null,
@@ -6168,6 +6344,8 @@
         graduationPayments: normalizeRows(source.graduationPayments),
         settings: { ...defaults.settings, ...(source.settings || {}) }
       });
+      Object.keys(globalBranding).forEach(key => { normalized.settings[key] = globalBranding[key]; });
+      return normalized;
     }
 
     function mergeRecordsById(remoteRows, localRows) {
@@ -6206,7 +6384,7 @@
           const raw = store.getItem(key);
           if (!raw) return;
           const parsed = JSON.parse(raw);
-          parsed.user = user;
+          parsed.user = storageSafeAuthenticationUser(user);
           store.setItem(key, JSON.stringify(parsed));
         } catch {
           // Data autentikasi yang rusak akan ditangani pada pemeriksaan sesi berikutnya.
@@ -6219,15 +6397,17 @@
       if (!warnings.length) return;
       const warning = warnings[0];
       setDatabaseStatus("pending", warning.message || "Sebagian data akun belum terhubung dengan benar.");
-      showToast("Data Pasis belum lengkap", warning.message || "Hubungan akun dan anggota perlu diperiksa oleh admin.");
+      showToast("Data Pasis belum lengkap", warning.message || "Hubungan akun dan anggota perlu diperiksa oleh Team IT.");
     }
 
     function applyRemoteEnvelope(result, options = {}) {
       if (!result || typeof result !== "object") return false;
+      applyGlobalBrandingPayload(result.branding, result.brandingRevision);
 
       if (result.user && typeof result.user === "object") {
         currentAuthUser = result.user;
-        activeUserCacheId = String(result.user?.id || result.user?.username || "anonymous");
+        if (isItTeam(result.user) && !baseAuthUser) baseAuthUser = storageSafeAuthenticationUser(result.user);
+        activeUserCacheId = userCacheScopeId(result.user);
         updateStoredAuthenticationUser(result.user);
         applyAuthenticatedUser();
       }
@@ -6255,7 +6435,7 @@
 
 
     function offlineGraceMilliseconds(role) {
-      return ["admin", "it", "it_team", "editor", "class_chair", "class_treasurer"].includes(normalizedRole(role))
+      return ["it_team", "class_chair", "class_treasurer"].includes(normalizedRole(role))
         ? OFFLINE_PRIVILEGED_GRACE_MS
         : OFFLINE_READONLY_GRACE_MS;
     }
@@ -6294,6 +6474,17 @@
         /failed to fetch|networkerror|load failed|internet|koneksi/i.test(message);
     }
 
+    function storageSafeAuthenticationUser(user) {
+      if (!user || typeof user !== "object") return user;
+      const copy = { ...user };
+      if (isItTeam(copy)) {
+        copy.classId = "";
+        copy.classSpreadsheetId = "";
+        copy.classContext = null;
+      }
+      return copy;
+    }
+
     function readStoredAuthentication() {
       const stores = [localStorage, sessionStorage];
       const keys = [AUTH_LOCAL_KEY, AUTH_SESSION_KEY];
@@ -6318,6 +6509,7 @@
               Number(parsed.lastVerifiedAt) + offlineGraceMilliseconds(parsed.user.role)
             );
           }
+          parsed.user = storageSafeAuthenticationUser(parsed.user);
           parsed.remember = index === 0;
           stores[index].setItem(keys[index], JSON.stringify({
             sessionToken: parsed.sessionToken,
@@ -6341,14 +6533,15 @@
       else storeRememberedUsername("");
       const now = Date.now();
       const expiry = Date.parse(result.expiresAt || "");
+      const storedUser = storageSafeAuthenticationUser(result.user);
       const payload = JSON.stringify({
         sessionToken: result.sessionToken,
         expiresAt: result.expiresAt,
-        user: result.user,
+        user: storedUser,
         lastVerifiedAt: now,
         offlineAccessUntil: Math.min(
           Number.isFinite(expiry) ? expiry : Number.MAX_SAFE_INTEGER,
-          now + offlineGraceMilliseconds(result.user?.role)
+          now + offlineGraceMilliseconds(storedUser?.role)
         )
       });
       (remember ? localStorage : sessionStorage).setItem(
@@ -6370,7 +6563,7 @@
           const parsed = JSON.parse(raw);
           if (parsed.sessionToken !== authSessionToken) return;
           const expiry = Date.parse(parsed.expiresAt || "");
-          parsed.user = user;
+          parsed.user = storageSafeAuthenticationUser(user);
           parsed.lastVerifiedAt = now;
           parsed.offlineAccessUntil = Math.min(
             Number.isFinite(expiry) ? expiry : Number.MAX_SAFE_INTEGER,
@@ -6405,29 +6598,36 @@
       renderAll();
     }
 
+    const ACTIVE_ROLE_CODES = ["it_team", "class_chair", "class_vice_chair", "class_treasurer", "pasis"];
+
     function normalizedRole(role) {
-      const value = String(role || "viewer").toLowerCase().trim().replace(/\s+/g, "_");
-      const aliases = { team_it: "it_team", ketua: "class_chair", wakil: "class_vice_chair", bendahara: "class_treasurer" };
-      return aliases[value] || value;
+      const value = String(role || "").toLowerCase().trim().replace(/\s+/g, "_");
+      const aliases = {
+        team_it: "it_team",
+        ketua: "class_chair",
+        ketua_kelas: "class_chair",
+        wakil: "class_vice_chair",
+        wakil_kelas: "class_vice_chair",
+        bendahara: "class_treasurer",
+        bendahara_kelas: "class_treasurer"
+      };
+      const normalized = aliases[value] || value;
+      return ACTIVE_ROLE_CODES.includes(normalized) ? normalized : "";
     }
 
     function roleLabel(role) {
       const labels = {
-        admin: "Administrator",
-        it: "IT Support",
         it_team: "Team IT",
-        editor: "Editor",
-        viewer: "Hanya Lihat",
         class_chair: "Ketua Kelas",
         class_vice_chair: "Wakil Kelas",
         class_treasurer: "Bendahara",
         pasis: "Pasis"
       };
-      return labels[normalizedRole(role)] || "Hanya Lihat";
+      return labels[normalizedRole(role)] || "Role Tidak Valid";
     }
 
     function isItTeam(user = currentAuthUser) {
-      return ["admin", "it", "it_team"].includes(normalizedRole(user?.role));
+      return normalizedRole(user?.role) === "it_team";
     }
 
     function isClassChair(user = currentAuthUser) {
@@ -6447,11 +6647,97 @@
     }
 
     function canEditFinance(user = currentAuthUser) {
-      return ["admin", "it", "it_team", "editor", "class_chair", "class_treasurer"].includes(normalizedRole(user?.role));
+      return ["it_team", "class_chair", "class_treasurer"].includes(normalizedRole(user?.role));
     }
 
     function canReviewClassRegistrations(user = currentAuthUser) {
       return isItTeam(user);
+    }
+
+    function isItPortalMode(user = currentAuthUser) {
+      return isItTeam(user) && !String(activeItClassId || user?.classId || "").trim();
+    }
+
+    function cacheItClassDirectory(result = {}) {
+      try {
+        localStorage.setItem(IT_CLASS_DIRECTORY_CACHE_KEY, JSON.stringify({
+          classes: Array.isArray(result.classes) ? result.classes : [],
+          summary: result.summary && typeof result.summary === "object" ? result.summary : {},
+          savedAt: Date.now()
+        }));
+      } catch {}
+    }
+
+    function readCachedItClassDirectory() {
+      try {
+        const parsed = JSON.parse(localStorage.getItem(IT_CLASS_DIRECTORY_CACHE_KEY) || "null");
+        if (!parsed || !Array.isArray(parsed.classes)) return null;
+        return parsed;
+      } catch {
+        return null;
+      }
+    }
+
+    function renderItClassDirectory() {
+      const classes = Array.isArray(itClassDirectory) ? itClassDirectory : [];
+      const activeClasses = classes.filter(item => String(item.status || "active").toLowerCase() === "active");
+      const summary = itClassDirectorySummary || {};
+      if ($("#itSummaryActiveClasses")) $("#itSummaryActiveClasses").textContent = Number(summary.active ?? activeClasses.length).toLocaleString("id-ID");
+      if ($("#itSummaryCohorts")) $("#itSummaryCohorts").textContent = Number(summary.cohorts || 0).toLocaleString("id-ID");
+      if ($("#itSummaryMembers")) $("#itSummaryMembers").textContent = Number(summary.estimatedMembers || 0).toLocaleString("id-ID");
+      if ($("#itSummaryPending")) $("#itSummaryPending").textContent = Number(summary.pendingRegistrations || 0).toLocaleString("id-ID");
+      if ($("#itClassCountLabel")) $("#itClassCountLabel").textContent = activeClasses.length.toLocaleString("id-ID") + " kelas";
+
+      const select = $("#itClassSelect");
+      if (select) {
+        const selected = String(activeItClassId || "");
+        select.innerHTML = '<option value="">Team IT — Semua Kelas</option>' + activeClasses.map(item => {
+          const label = [item.className || "Kelas", item.cohortYear ? "Angkatan " + item.cohortYear : "", item.wave || ""].filter(Boolean).join(" · ");
+          return `<option value="${escapeHtml(item.id)}">${escapeHtml(label)}</option>`;
+        }).join("");
+        select.value = selected;
+      }
+
+      const grid = $("#itClassDirectoryGrid");
+      if (!grid) return;
+      const query = String($("#itClassSearch")?.value || "").trim().toLowerCase();
+      const filtered = activeClasses.filter(item => !query || [item.className,item.spreadsheetName,item.classCode,item.cohortYear,item.academicYear,item.wave,item.chairName].join(" ").toLowerCase().includes(query));
+      if (!filtered.length) {
+        grid.innerHTML = '<div class="empty show"><strong>Kelas tidak ditemukan</strong><span>Belum ada kelas aktif atau kata kunci pencarian tidak cocok.</span></div>';
+        return;
+      }
+      grid.innerHTML = filtered.map(item => `<article class="it-class-card" data-it-class-card="${escapeHtml(item.id)}">
+        <div class="it-class-card-top"><div><h3>${escapeHtml(item.className || "Kelas")}</h3><p>${escapeHtml([item.cohortYear ? "Angkatan " + item.cohortYear : "", item.wave || "", item.academicYear || ""].filter(Boolean).join(" · "))}</p></div><span class="badge green">Aktif</span></div>
+        <div class="it-class-card-meta"><span>${Number(item.estimatedMembers || 0).toLocaleString("id-ID")} Pasis</span><span>${escapeHtml(item.chairName || "Ketua belum tercatat")}</span></div>
+        <p><strong>Database:</strong> ${escapeHtml(item.spreadsheetName || item.className || "Belum tersedia")}</p>
+        <button class="btn btn-primary btn-sm" type="button" data-open-it-class="${escapeHtml(item.id)}">Pilih Data Kelas</button>
+      </article>`).join("");
+    }
+
+    async function loadItClassDirectory(force = false) {
+      if (!isItTeam(baseAuthUser || currentAuthUser)) return null;
+      if (!force && !itClassDirectory.length) {
+        const cached = readCachedItClassDirectory();
+        if (cached) {
+          itClassDirectory = cached.classes;
+          itClassDirectorySummary = cached.summary || {};
+          itClassDirectoryLoadedAt = Number(cached.savedAt || 0);
+          renderItClassDirectory();
+        }
+      }
+      if (!force && itClassDirectory.length && Date.now() - itClassDirectoryLoadedAt < 45000) return { classes: itClassDirectory, summary: itClassDirectorySummary };
+      try {
+        const result = await requestDatabase({ action: "getClassDirectory" }, { timeoutMs: SESSION_REQUEST_TIMEOUT_MS });
+        itClassDirectory = Array.isArray(result.classes) ? result.classes : [];
+        itClassDirectorySummary = result.summary || {};
+        itClassDirectoryLoadedAt = Date.now();
+        cacheItClassDirectory(result);
+        renderItClassDirectory();
+        return result;
+      } catch (error) {
+        if (!itClassDirectory.length) throw error;
+        return { classes: itClassDirectory, summary: itClassDirectorySummary, cached: true };
+      }
     }
 
     function userInitials(name) {
@@ -6693,7 +6979,7 @@
     }
 
     function applyApplicationBranding(preferredName = "") {
-      const stateName = String(preferredName || "").trim();
+      const stateName = String(globalBranding.organizationName || preferredName || "").trim();
       let cachedName = "";
       try { cachedName = String(localStorage.getItem(APPLICATION_BRAND_KEY) || "").trim(); } catch {}
 
@@ -6761,17 +7047,7 @@
             { timeoutMs: 7000, suppressAuthHandling: true, sessionTokenOverride: "" }
           );
           const branding = result.branding || {};
-          state.settings.organizationName = String(branding.organizationName || "Keuangan Pasis");
-          state.settings.applicationLogoUrl = String(branding.applicationLogoUrl || "");
-          state.settings.applicationLogoFileId = String(branding.applicationLogoFileId || "");
-          state.settings.applicationLogoFileName = String(branding.applicationLogoFileName || "");
-          state.settings.applicationLogoMimeType = String(branding.applicationLogoMimeType || "");
-          state.settings.applicationLogoSizeBytes = Number(branding.applicationLogoSizeBytes) || 0;
-          state.settings.applicationLogoUpdatedAt = String(branding.applicationLogoUpdatedAt || "");
-          state.settings.applicationLogoInlineData = String(branding.applicationLogoInlineData || "");
-          publicBrandingLoaded = true;
-          applyApplicationBranding(state.settings.organizationName);
-          renderSettingLogoPreview();
+          applyGlobalBrandingPayload(branding, result.brandingRevision);
           return branding;
         } catch {
           applyApplicationBranding(state?.settings?.organizationName || "");
@@ -7151,7 +7427,11 @@
       updatePageHeading(currentPage);
       const role = normalizedRole(user.role);
       const isPasis = role === "pasis";
-      const readOnly = role === "viewer" || role === "class_vice_chair" || isPasis;
+      const itTeam = isItTeam(user);
+      const itPortal = itTeam && !String(activeItClassId || user.classId || "").trim();
+      const readOnly = role === "class_vice_chair" || isPasis;
+      document.body.classList.toggle("it-team-mode", itTeam);
+      document.body.classList.toggle("it-portal-mode", itPortal);
       document.body.classList.toggle("read-only-mode", readOnly);
       document.body.classList.toggle("pasis-mode", isPasis);
       document.body.classList.toggle("maintenance-manager", isMaintenanceManager(user));
@@ -7161,10 +7441,25 @@
       if (activityLogNav) activityLogNav.hidden = !canViewActivityLogs(user);
       const registrationNav = document.querySelector("[data-class-registration-nav]");
       if (registrationNav) registrationNav.hidden = !canReviewClassRegistrations(user);
+      const itDashboardNav = document.querySelector("[data-it-dashboard-nav]");
+      if (itDashboardNav) itDashboardNav.hidden = !itTeam;
+      const classSwitcher = $("#itClassSwitcher");
+      if (classSwitcher) {
+        classSwitcher.hidden = !itTeam;
+        classSwitcher.classList.toggle("show", itTeam);
+      }
+      const classOnlyPages = new Set(["overview","kartu","pemasukan","pengeluaran","kas","absensi","wisuda","lainnya","pengurus","pembayaran","history","laporan","anggota"]);
+      $$(".nav-btn[data-page]").forEach(button => {
+        const isClassOnly = classOnlyPages.has(button.dataset.page);
+        if (isClassOnly) button.dataset.classOnlyNav = "true";
+        if (itPortal && isClassOnly) button.hidden = true;
+        else if (isClassOnly) button.hidden = false;
+      });
       const classTeamPanel = $("#classTeamPanel");
       if (classTeamPanel) classTeamPanel.hidden = !canManageClassTeam(user) || !String(user.classId || "");
 
       const classContext = user.classContext || null;
+      if (itTeam && classContext?.id) activeItClassId = String(classContext.id);
       const classChip = $("#classContextChip");
       if (classChip) classChip.classList.toggle("show", Boolean(classContext && classContext.id));
       if ($("#activeClassName")) $("#activeClassName").textContent = classContext?.className || state?.settings?.className || "Kelas";
@@ -7223,7 +7518,8 @@
       databaseReady = false;
 
       currentAuthUser = bootstrapResult?.user || user;
-      activeUserCacheId = String(currentAuthUser?.id || currentAuthUser?.username || "anonymous");
+      if (isItTeam(currentAuthUser) && !baseAuthUser) baseAuthUser = storageSafeAuthenticationUser(currentAuthUser);
+      activeUserCacheId = userCacheScopeId(currentAuthUser);
       const cachedPayloadVersion = Number(localStorage.getItem(scopedStorageKey(PAYLOAD_VERSION_KEY)) || 0);
       const cachedSnapshotAvailable = cachedPayloadVersion === STATE_PAYLOAD_VERSION &&
         Boolean(localStorage.getItem(scopedStorageKey(STORAGE_KEY)));
@@ -7254,7 +7550,7 @@
       }
 
       hideMaintenanceScreen();
-      switchPage("overview");
+      switchPage(isItPortalMode(currentAuthUser) ? "it-dashboard" : "overview");
       // Beri browser kesempatan menyelesaikan layout dengan data yang sudah dirender
       // sebelum layar login/loading ditutup.
       await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
@@ -7301,6 +7597,88 @@
         });
     }
 
+    async function enterItPortal(user = baseAuthUser || currentAuthUser, maintenance = null) {
+      authGeneration += 1;
+      const generation = authGeneration;
+      clearInterval(autoRefreshTimer);
+      clearInterval(maintenanceHeartbeatTimer);
+      clearInterval(onlineUsersTimer);
+      clearTimeout(syncTimer);
+      syncQueued = false;
+      syncInFlight = false;
+      loadInFlight = false;
+      revisionPollInFlight = false;
+      activeItClassId = "";
+      try { sessionStorage.removeItem(IT_SELECTED_CLASS_SESSION_KEY); } catch {}
+      currentAuthUser = storageSafeAuthenticationUser(user || {});
+      baseAuthUser = storageSafeAuthenticationUser(currentAuthUser);
+      activeUserCacheId = userCacheScopeId(currentAuthUser);
+      remoteRevision = 0;
+      remoteScopeKey = "";
+      remoteLoaded = false;
+      databaseReady = true;
+      state = cloneDefault();
+      applySettingsToUI();
+      renderAll();
+      applyAuthenticatedUser();
+      document.body.classList.remove("auth-locked", "sidebar-open");
+      $("#loginScreen")?.classList.add("hidden");
+      hideMaintenanceScreen();
+      switchPage("it-dashboard");
+      setDatabaseLoading(false);
+      setDatabaseStatus("synced", "Portal Team IT aktif. Pilih kelas hanya saat perlu membuka data keuangan.");
+      renderItClassDirectory();
+      void loadItClassDirectory(false).catch(error => showToast("Daftar kelas memakai cache", error.message || "Server belum dapat dijangkau."));
+      clearInterval(autoRefreshTimer);
+      clearInterval(maintenanceHeartbeatTimer);
+      maintenanceHeartbeatTimer = setInterval(() => checkActiveMaintenanceHeartbeat(), 5000);
+      startOnlineUsersMonitoring(generation);
+    }
+
+    async function selectItClass(classId) {
+      const selectedId = String(classId || "").trim();
+      if (!isItTeam(baseAuthUser || currentAuthUser)) return;
+      if (!selectedId) {
+        await enterItPortal(baseAuthUser || currentAuthUser, maintenanceFromSettings());
+        return;
+      }
+      if (isSyncPending()) {
+        showToast("Perubahan belum tersinkron", "Selesaikan sinkronisasi kelas aktif sebelum berpindah kelas.");
+        return;
+      }
+      const record = itClassDirectory.find(item => String(item.id) === selectedId);
+      if (!record) {
+        showToast("Kelas tidak ditemukan", "Muat ulang daftar kelas lalu coba kembali.");
+        return;
+      }
+      activeItClassId = selectedId;
+      try { sessionStorage.setItem(IT_SELECTED_CLASS_SESSION_KEY, selectedId); } catch {}
+      if ($("#itClassSelect")) $("#itClassSelect").value = selectedId;
+      const token = startGlobalLoading("Membuka kelas", "Menghubungkan database " + (record.className || "kelas") + "...", 10);
+      try {
+        updateGlobalLoading(token, 30, "Membaca transaksi, anggota, dan pembayaran kelas...", "Memuat database kelas");
+        const result = await requestBootstrapWithRetry({
+          action: "getState",
+          knownRevision: -1,
+          knownScope: "",
+          knownPayloadVersion: 0,
+          forceRefresh: true,
+          selectedClassId: selectedId
+        }, { timeoutMs: Math.max(LOGIN_REQUEST_TIMEOUT_MS, 30000), suppressAuthHandling: true }, token);
+        if (!result?.state) throw Object.assign(new Error("Database kelas belum mengirim data lengkap."), { code: "DATA_BOOTSTRAP_MISSING" });
+        updateGlobalLoading(token, 82, "Database kelas diterima. Menyiapkan dashboard...", "Menyiapkan tampilan");
+        await enterAuthenticatedApplication(result.user, result.maintenance, result, { allowCachedInteraction: true, requireRemoteState: true });
+        await finishGlobalLoading(token, "Kelas siap dikontrol");
+        showToast("Kelas aktif", (record.className || "Kelas") + " sekarang terbuka dalam mode Team IT.");
+      } catch (error) {
+        activeItClassId = "";
+        try { sessionStorage.removeItem(IT_SELECTED_CLASS_SESSION_KEY); } catch {}
+        await abortGlobalLoading(token, error.message || "Database kelas belum dapat dibuka");
+        await enterItPortal(baseAuthUser || currentAuthUser, maintenanceFromSettings());
+        showToast("Kelas belum dapat dibuka", error.message || "Periksa registry dan izin spreadsheet kelas.");
+      }
+    }
+
     function showLoginScreen(message = "") {
       authGeneration += 1;
       loadInFlight = false;
@@ -7311,7 +7689,10 @@
       clearInterval(onlineUsersTimer);
       clearTimeout(syncTimer);
       document.body.classList.add("auth-locked");
-      document.body.classList.remove("read-only-mode", "pasis-mode", "maintenance-manager", "sidebar-open");
+      document.body.classList.remove("read-only-mode", "pasis-mode", "maintenance-manager", "it-team-mode", "it-portal-mode", "sidebar-open");
+      activeItClassId = "";
+      baseAuthUser = null;
+      try { sessionStorage.removeItem(IT_SELECTED_CLASS_SESSION_KEY); } catch {}
       stopOnlineUsersMonitoring();
       hideMaintenanceScreen();
       $("#loginScreen")?.classList.remove("hidden");
@@ -7373,6 +7754,42 @@
         return;
       }
 
+      baseAuthUser = storageSafeAuthenticationUser(savedAuth.user);
+      const rememberedScopeId = userCacheScopeId(savedAuth.user);
+      const cachedPayloadVersion = Number(localStorage.getItem(PAYLOAD_VERSION_KEY + "::" + rememberedScopeId) || 0);
+      const cachedStateAvailable = cachedPayloadVersion === STATE_PAYLOAD_VERSION && Boolean(localStorage.getItem(STORAGE_KEY + "::" + rememberedScopeId));
+
+      // Remember dibuka cache-first. Team IT tidak perlu memuat state transaksi sama sekali,
+      // sedangkan akun kelas dapat langsung memakai snapshot lokal lalu verifikasi berjalan paralel.
+      if (isItTeam(savedAuth.user)) {
+        await enterItPortal(savedAuth.user, maintenanceFromSettings());
+        requestDatabase({ action: "getSession", includeState: false }, { timeoutMs: STARTUP_SESSION_TIMEOUT_MS, suppressAuthHandling: true })
+          .then(result => {
+            baseAuthUser = storageSafeAuthenticationUser(result.user || savedAuth.user);
+            currentAuthUser = baseAuthUser;
+            markStoredAuthenticationVerified(baseAuthUser);
+            applyAuthenticatedUser();
+            return loadItClassDirectory(true);
+          })
+          .catch(error => {
+            if (!isConnectivityFailure(error)) handleAuthenticationExpired(error.message || "Sesi perangkat tidak berlaku.");
+          });
+        return;
+      }
+      if (cachedAccessAllowed && cachedStateAvailable) {
+        await enterAuthenticatedApplication(savedAuth.user, maintenanceFromSettings(), null, { allowCachedInteraction: true, cachedSession: true });
+        requestDatabase({ action: "getSession", includeState: false }, { timeoutMs: STARTUP_SESSION_TIMEOUT_MS, suppressAuthHandling: true })
+          .then(result => {
+            currentAuthUser = result.user || savedAuth.user;
+            markStoredAuthenticationVerified(currentAuthUser);
+            applyAuthenticatedUser();
+          })
+          .catch(error => {
+            if (!isConnectivityFailure(error)) handleAuthenticationExpired(error.message || "Sesi perangkat tidak berlaku.");
+          });
+        return;
+      }
+
       setLoginStartupCheck(true);
       await showDatabaseLoadingBackground(savedAuth.user);
       const sessionLoadingToken = startGlobalLoading(
@@ -7384,20 +7801,27 @@
         updateGlobalLoading(sessionLoadingToken, 22, "Sesi perangkat sedang diverifikasi...", "Verifikasi keamanan");
         // Saat online, sesi selalu diverifikasi dahulu sebelum dashboard dibuka.
         let result = await requestBootstrapWithRetry(
-          { action: "getSession", includeState: true },
+          { action: "getSession", includeState: !isItTeam(savedAuth.user) },
           { timeoutMs: Math.max(STARTUP_SESSION_TIMEOUT_MS, 30000), suppressAuthHandling: true },
           sessionLoadingToken
         );
-        result = await ensureBootstrapState(result, sessionLoadingToken, authSessionToken);
+        if (!isItTeam(result.user || savedAuth.user)) {
+          result = await ensureBootstrapState(result, sessionLoadingToken, authSessionToken);
+        }
         updateGlobalLoading(sessionLoadingToken, 78, "Data akun berhasil diterima. Menyiapkan tampilan aplikasi...", "Memuat database");
         currentAuthUser = result.user;
         markStoredAuthenticationVerified(result.user);
-        await enterAuthenticatedApplication(
-          result.user,
-          result.maintenance,
-          result,
-          { allowCachedInteraction: true, requireRemoteState: true }
-        );
+        if (isItTeam(result.user)) {
+          baseAuthUser = storageSafeAuthenticationUser(result.user);
+          await enterItPortal(baseAuthUser, result.maintenance);
+        } else {
+          await enterAuthenticatedApplication(
+            result.user,
+            result.maintenance,
+            result,
+            { allowCachedInteraction: true, requireRemoteState: true }
+          );
+        }
         await finishGlobalLoading(sessionLoadingToken, "Data terbaru siap digunakan");
       } catch (error) {
         if (isConnectivityFailure(error) && cachedAccessAllowed) {
@@ -7465,6 +7889,7 @@
 
         authSessionToken = result.sessionToken;
         currentAuthUser = result.user;
+        baseAuthUser = isItTeam(result.user) ? storageSafeAuthenticationUser(result.user) : null;
         persistAuthentication(result, remember);
         $("#loginPassword").value = "";
 
@@ -7478,17 +7903,25 @@
         );
         updateGlobalLoading(loginLoadingToken, 28, "Akun berhasil diverifikasi. Menghubungkan database kelas...", "Menghubungkan database");
 
-        result = await ensureBootstrapState(result, loginLoadingToken, result.sessionToken);
-        updateGlobalLoading(loginLoadingToken, 78, "Data pembayaran dan pengaturan sudah diterima...", "Menyiapkan data akun");
-        currentAuthUser = result.user;
-        markStoredAuthenticationVerified(result.user);
-
-        await enterAuthenticatedApplication(
-          result.user,
-          result.maintenance,
-          result,
-          { allowCachedInteraction: true, requireRemoteState: true }
-        );
+        if (isItTeam(result.user)) {
+          // Team IT langsung masuk ke portal ringan. Direktori lokal ditampilkan seketika,
+          // sedangkan penyegaran daftar kelas berjalan di latar belakang melalui enterItPortal().
+          updateGlobalLoading(loginLoadingToken, 72, "Membuka portal Team IT...", "Menyiapkan portal IT");
+          currentAuthUser = baseAuthUser;
+          markStoredAuthenticationVerified(baseAuthUser);
+          await enterItPortal(baseAuthUser, result.maintenance);
+        } else {
+          result = await ensureBootstrapState(result, loginLoadingToken, result.sessionToken);
+          updateGlobalLoading(loginLoadingToken, 78, "Data pembayaran dan pengaturan sudah diterima...", "Menyiapkan data akun");
+          currentAuthUser = result.user;
+          markStoredAuthenticationVerified(result.user);
+          await enterAuthenticatedApplication(
+            result.user,
+            result.maintenance,
+            result,
+            { allowCachedInteraction: true, requireRemoteState: true }
+          );
+        }
         updateGlobalLoading(loginLoadingToken, 96, "Tampilan aplikasi selesai disiapkan...", "Menyelesaikan login");
         await finishGlobalLoading(loginLoadingToken, "Semua data siap digunakan");
         if (!shouldBlockForMaintenance(result.user, result.maintenance)) {
@@ -7505,7 +7938,8 @@
         const safeMessages = {
           INVALID_CREDENTIALS: "Username atau kata sandi tidak cocok.",
           ACCOUNT_LOCKED: error.message || "Akun sementara dikunci karena terlalu banyak percobaan.",
-          ACCOUNT_DISABLED: "Akun ini sedang dinonaktifkan. Hubungi administrator.",
+          ACCOUNT_DISABLED: "Akun ini sedang dinonaktifkan. Hubungi Team IT.",
+          ACCOUNT_ROLE_INVALID: "Role akun tidak valid. Jalankan setupDatabase() lalu login ulang.",
           ACCOUNT_PASSWORD_NOT_SET: "Kata sandi akun belum tersimpan dengan benar. Admin perlu membuat ulang kata sandi.",
           DUPLICATE_USERNAME_RECORD: "Username tercatat lebih dari satu kali di database. Admin perlu memperbaiki data akun.",
           ACCOUNT_NOT_LINKED: error.message || "Akun Pasis belum terhubung dengan data anggota.",
@@ -7859,6 +8293,14 @@
       const outgoingPayload = {
         ...(payload && typeof payload === "object" ? payload : {})
       };
+      const classScopedActions = new Set([
+        "health", "getState", "getRevision", "syncDelta", "saveState", "auditFinance",
+        "upsertMemberWithAccount", "upsertMemberAccount", "prepareMemberLoginShare",
+        "deactivateMemberAccount", "getClassStaff", "upsertClassStaff", "deactivateClassStaff"
+      ]);
+      if (activeItClassId && isItTeam(baseAuthUser || currentAuthUser) && classScopedActions.has(String(outgoingPayload.action || "")) && !outgoingPayload.selectedClassId) {
+        outgoingPayload.selectedClassId = activeItClassId;
+      }
       const mutationRequest = isMutationAction(outgoingPayload.action);
       if (mutationRequest && !outgoingPayload.requestId) {
         outgoingPayload.requestId = createClientRequestId();
@@ -8343,6 +8785,8 @@
           return;
         }
 
+        const brandingChanged = applyGlobalBrandingPayload(result.branding, result.brandingRevision);
+        if (brandingChanged) applySettingsToUI();
         const latestRevision = Number(result.revision);
         const latestScope = String(result.scopeKey || remoteScopeKey || "");
         const revisionChanged = Number.isFinite(latestRevision) && latestRevision !== remoteRevision;
@@ -8379,6 +8823,7 @@
 
         let result = await requestDatabase(requestPayload);
         if (requestGeneration !== authGeneration) return;
+        applyGlobalBrandingPayload(result.branding, result.brandingRevision);
 
         if (shouldBlockForMaintenance(currentAuthUser, result.maintenance)) {
           showMaintenanceScreen(result.maintenance);
@@ -8499,6 +8944,16 @@
 
     async function initializeDatabaseSync(generation = authGeneration) {
       if (!authSessionToken || generation !== authGeneration) return;
+      if (isItPortalMode()) {
+        await loadItClassDirectory(false).catch(() => null);
+        setDatabaseLoading(false);
+        setDatabaseStatus("synced", "Portal Team IT aktif. Data kelas belum dimuat sampai kelas dipilih.");
+        clearInterval(autoRefreshTimer);
+        autoRefreshTimer = setInterval(() => {
+          if (generation === authGeneration && document.visibilityState === "visible") void refreshPublicBranding(true);
+        }, 15000);
+        return;
+      }
       // Login/getSession sudah membawa state lengkap. Hindari request getState kedua
       // yang sebelumnya langsung membebani server saat banyak pengguna masuk bersamaan.
       if (!remoteLoaded || isSyncPending()) {
@@ -8929,7 +9384,8 @@
         changePassword: "Ganti kata sandi",
         updateOwnBankAccount: "Ubah rekening sendiri",
         setMaintenanceMode: "Atur maintenance",
-        uploadApplicationLogo: "Unggah logo",
+        updateGlobalBranding: "Ubah branding global",
+        uploadApplicationLogo: "Unggah logo perusahaan",
         requestPasswordReset: "Permintaan reset password",
         reviewPasswordResetRequest: "Tinjau reset password",
         registerClassChair: "Pendaftaran ketua kelas",
@@ -8985,10 +9441,24 @@
     }
 
     function applySettingsToUI() {
-      applyApplicationBranding(state.settings.organizationName);
+      applyGlobalBrandingToState();
+      applyApplicationBranding(globalBranding.organizationName);
       $(".profile-copy strong").textContent = authenticatedDisplayName();
-      $("#settingOrgName").value = state.settings.organizationName;
-      $("#settingApplicationUrl").value = state.settings.applicationUrl || (location.origin + location.pathname);
+      $("#settingOrgName").value = globalBranding.organizationName;
+      $("#settingApplicationUrl").value = globalBranding.applicationUrl || (location.origin + location.pathname);
+      const canEditGlobalBranding = isItTeam();
+      const globalPortalOnly = isItPortalMode();
+      $$('[data-global-branding-admin]').forEach(element => { element.hidden = !canEditGlobalBranding; });
+      if ($("#globalBrandingManagedNotice")) $("#globalBrandingManagedNotice").hidden = canEditGlobalBranding;
+      const classSettingIds = [
+        "settingChairName", "settingChairPhone", "settingViceChairName", "settingViceChairPhone",
+        "settingTreasurer", "settingTreasurerPhone", "settingMonthlyFee", "settingGraduationFee",
+        "settingGraduationPeriod", "settingBudget", "settingCurrency", "settingPaymentBank",
+        "settingPaymentAccountNumber", "settingPaymentAccountName", "settingPaymentContact",
+        "settingPaymentInstructions", "settingNotifications", "settingCompact"
+      ];
+      classSettingIds.forEach(id => { if ($("#" + id)) $("#" + id).disabled = globalPortalOnly; });
+      if ($("#saveSettingsBtn")) $("#saveSettingsBtn").textContent = globalPortalOnly ? "Simpan Branding Global" : "Simpan Pengaturan";
       renderSettingLogoPreview();
       if ($("#settingMaintenanceEnabled")) $("#settingMaintenanceEnabled").checked = !!state.settings.maintenanceEnabled;
       if ($("#settingMaintenanceTitle")) $("#settingMaintenanceTitle").value = state.settings.maintenanceTitle || "Aplikasi sedang maintenance";
@@ -9018,6 +9488,7 @@
 
     function getPageHeading(page) {
       const titles = {
+        "it-dashboard": ["Portal <span>Team IT</span>", "Database utama membaca tab Data Kelas. Pilih kelas hanya saat perlu mengontrol database keuangannya."],
         overview: ["Selamat datang, <span>" + escapeHtml(authenticatedDisplayName()) + "</span>", currentAuthUser?.role === "pasis" ? "Pantau status dan riwayat pembayaran Anda." : "Kelola arus kas dan transaksi Pasis secara terpusat."],
         kartu: ["Kartu <span>Pasis Digital</span>", "Lihat identitas anggota dan ringkasan pembayaran dalam satu kartu."],
         pemasukan: ["Manajemen <span>Pemasukan</span>", "Catat dan pantau seluruh dana yang masuk."],
@@ -9045,8 +9516,10 @@
     }
 
     function switchPage(page) {
-      if (page === "log" && !canViewActivityLogs()) page = "overview";
-      if (page === "class-registrations" && !canReviewClassRegistrations()) page = "overview";
+      if (isItPortalMode() && !["it-dashboard", "class-registrations", "log", "pengaturan"].includes(page)) page = "it-dashboard";
+      if (page === "it-dashboard" && !isItTeam()) page = "overview";
+      if (page === "log" && !canViewActivityLogs()) page = isItPortalMode() ? "it-dashboard" : "overview";
+      if (page === "class-registrations" && !canReviewClassRegistrations()) page = isItPortalMode() ? "it-dashboard" : "overview";
       if (currentAuthUser?.role === "pasis" && !["overview", "kartu", "pengeluaran", "kas", "absensi", "wisuda", "lainnya", "pengurus", "pembayaran", "history"].includes(page)) page = "overview";
       currentPage = page;
       $$(".nav-btn").forEach(button => button.classList.toggle("active", button.dataset.page === page));
@@ -9056,6 +9529,10 @@
       $("#globalSearch").value = "";
       document.body.classList.remove("sidebar-open");
 
+      if (page === "it-dashboard" && isItTeam()) {
+        renderItClassDirectory();
+        void loadItClassDirectory(false).catch(() => null);
+      }
       if (page === "laporan") renderReport();
       if (page === "log" && canViewActivityLogs()) void loadActivityLogs(false);
       if (page === "class-registrations" && canReviewClassRegistrations()) void loadClassRegistrations();
@@ -9113,11 +9590,7 @@
 
     function onlineRoleLabel(role) {
       const labels = {
-        admin: "Administrator",
-        it: "Tim IT",
         it_team: "Team IT",
-        editor: "Editor",
-        viewer: "Viewer",
         class_chair: "Ketua Kelas",
         class_vice_chair: "Wakil Kelas",
         class_treasurer: "Bendahara",
@@ -9691,7 +10164,11 @@
 
     // NAVIGASI SIDEBAR - selalu tertutup sampai tombol toggle ditekan
     $$(".nav-btn").forEach(button => button.addEventListener("click", () => {
-      switchPage(button.dataset.page);
+      if (button.dataset.page === "it-dashboard" && isItTeam() && activeItClassId) {
+        void selectItClass("");
+      } else {
+        switchPage(button.dataset.page);
+      }
       document.body.classList.remove("sidebar-open");
     }));
     $("#collapseSidebar").addEventListener("click", () => document.body.classList.remove("sidebar-open"));
@@ -9699,6 +10176,22 @@
     const mobileDockMenu = $("#mobileDockMenu");
     if (mobileDockMenu) mobileDockMenu.addEventListener("click", () => document.body.classList.toggle("sidebar-open"));
     $("#sidebarOverlay").addEventListener("click", () => document.body.classList.remove("sidebar-open"));
+    $("#openSelectedItClassBtn")?.addEventListener("click", () => selectItClass($("#itClassSelect")?.value || ""));
+    $("#returnItPortalBtn")?.addEventListener("click", () => selectItClass(""));
+    $("#itClassSelect")?.addEventListener("change", event => {
+      if (!event.target.value) void selectItClass("");
+    });
+    $("#itClassSearch")?.addEventListener("input", renderItClassDirectory);
+    $("#refreshItClassDirectoryBtn")?.addEventListener("click", async () => {
+      try { await loadItClassDirectory(true); showToast("Daftar kelas diperbarui", "Direktori terbaru berhasil dimuat."); }
+      catch (error) { showToast("Daftar kelas belum diperbarui", error.message); }
+    });
+    $("#itDashboardReviewBtn")?.addEventListener("click", () => switchPage("class-registrations"));
+    $("#itDashboardLogsBtn")?.addEventListener("click", () => switchPage("log"));
+    document.addEventListener("click", event => {
+      const button = event.target.closest("[data-open-it-class]");
+      if (button) void selectItClass(button.dataset.openItClass || "");
+    });
 
     // LOGIN
     $("#refreshActivityLogsBtn")?.addEventListener("click", () => loadActivityLogs(true));
@@ -10152,7 +10645,7 @@
 
     async function shareMemberLoginWhatsApp(memberId) {
       if (!canEditFinance()) {
-        showToast("Akses ditolak", "Hanya admin, editor, atau IT yang dapat membagikan akun login.");
+        showToast("Akses ditolak", "Hanya Team IT, Ketua Kelas, atau Bendahara yang dapat membagikan akun login.");
         return;
       }
       const member = state.members.find(item => Number(item.id) === Number(memberId));
@@ -10452,38 +10945,65 @@
       event.target.value = digits ? new Intl.NumberFormat("id-ID").format(Number(digits)) : "";
     }));
 
-    $("#saveSettingsBtn").addEventListener("click", () => {
-      state.settings.organizationName = $("#settingOrgName").value.trim() || "Keuangan Pasis";
-      state.settings.applicationUrl = $("#settingApplicationUrl").value.trim() || (location.origin + location.pathname);
-      if (isMaintenanceManager()) {
-        state.settings.maintenanceEnabled = !!$("#settingMaintenanceEnabled")?.checked;
-        state.settings.maintenanceTitle = $("#settingMaintenanceTitle")?.value.trim() || "Aplikasi sedang maintenance";
-        state.settings.maintenanceMessage = $("#settingMaintenanceMessage")?.value.trim() || "Admin sedang melakukan pemeliharaan data. Silakan kembali beberapa saat lagi.";
-        state.settings.maintenanceUntil = $("#settingMaintenanceUntil")?.value || "";
+    $("#saveSettingsBtn").addEventListener("click", async () => {
+      const button = $("#saveSettingsBtn");
+      button.disabled = true;
+      button.textContent = "Menyimpan...";
+      try {
+        if (isItTeam()) {
+          const result = await requestDatabase({
+            action: "updateGlobalBranding",
+            organizationName: $("#settingOrgName").value.trim() || "Keuangan Pasis",
+            applicationUrl: $("#settingApplicationUrl").value.trim() || (location.origin + location.pathname)
+          }, { timeoutMs: WRITE_REQUEST_TIMEOUT_MS });
+          applyGlobalBrandingPayload(result.branding, result.brandingRevision);
+          remoteRevision = Number(result.revision) || remoteRevision;
+          if (isItPortalMode()) {
+            cacheState();
+            applySettingsToUI();
+            showToast("Branding global disimpan", "Logo perusahaan dan link aplikasi berlaku untuk seluruh kelas.");
+            return;
+          }
+        }
+
+        applyGlobalBrandingToState();
+        if (isMaintenanceManager()) {
+          state.settings.maintenanceEnabled = !!$("#settingMaintenanceEnabled")?.checked;
+          state.settings.maintenanceTitle = $("#settingMaintenanceTitle")?.value.trim() || "Aplikasi sedang maintenance";
+          state.settings.maintenanceMessage = $("#settingMaintenanceMessage")?.value.trim() || "Team IT sedang melakukan pemeliharaan data. Silakan kembali beberapa saat lagi.";
+          state.settings.maintenanceUntil = $("#settingMaintenanceUntil")?.value || "";
+        }
+        state.settings.chairName = $("#settingChairName").value.trim();
+        state.settings.chairPhone = $("#settingChairPhone").value.trim();
+        state.settings.viceChairName = $("#settingViceChairName").value.trim();
+        state.settings.viceChairPhone = $("#settingViceChairPhone").value.trim();
+        state.settings.treasurerName = $("#settingTreasurer").value.trim() || "Bendahara";
+        state.settings.treasurerPhone = $("#settingTreasurerPhone").value.trim();
+        state.settings.paymentBank = $("#settingPaymentBank").value.trim();
+        state.settings.paymentAccountNumber = $("#settingPaymentAccountNumber").value.trim();
+        state.settings.paymentAccountName = $("#settingPaymentAccountName").value.trim();
+        state.settings.paymentContact = $("#settingPaymentContact").value.trim();
+        state.settings.paymentInstructions = $("#settingPaymentInstructions").value.trim();
+        state.settings.monthlyFee = Number($("#settingMonthlyFee").value.replace(/\D/g, "")) || 0;
+        state.settings.graduationFee = Number($("#settingGraduationFee").value.replace(/\D/g, "")) || 0;
+        state.settings.graduationPeriod = $("#settingGraduationPeriod").value.trim() || "Wisuda 2026";
+        state.settings.monthlyBudget = Number($("#settingBudget").value.replace(/\D/g, "")) || 0;
+        state.settings.currency = $("#settingCurrency").value;
+        state.settings.notifications = $("#settingNotifications").checked;
+        state.settings.compactSidebar = false;
+        $("#settingCompact").checked = false;
+        saveState();
+        applySettingsToUI();
+        renderAll();
+        showToast("Pengaturan disimpan", isItTeam()
+          ? "Logo perusahaan dan link aplikasi global berlaku untuk seluruh kelas."
+          : "Pengaturan keuangan kelas berhasil diperbarui.");
+      } catch (error) {
+        showToast("Pengaturan belum tersimpan", error.message || "Periksa koneksi database utama.");
+      } finally {
+        button.disabled = false;
+        button.textContent = isItPortalMode() ? "Simpan Branding Global" : "Simpan Pengaturan";
       }
-      state.settings.chairName = $("#settingChairName").value.trim();
-      state.settings.chairPhone = $("#settingChairPhone").value.trim();
-      state.settings.viceChairName = $("#settingViceChairName").value.trim();
-      state.settings.viceChairPhone = $("#settingViceChairPhone").value.trim();
-      state.settings.treasurerName = $("#settingTreasurer").value.trim() || "Bendahara";
-      state.settings.treasurerPhone = $("#settingTreasurerPhone").value.trim();
-      state.settings.paymentBank = $("#settingPaymentBank").value.trim();
-      state.settings.paymentAccountNumber = $("#settingPaymentAccountNumber").value.trim();
-      state.settings.paymentAccountName = $("#settingPaymentAccountName").value.trim();
-      state.settings.paymentContact = $("#settingPaymentContact").value.trim();
-      state.settings.paymentInstructions = $("#settingPaymentInstructions").value.trim();
-      state.settings.monthlyFee = Number($("#settingMonthlyFee").value.replace(/\D/g, "")) || 0;
-      state.settings.graduationFee = Number($("#settingGraduationFee").value.replace(/\D/g, "")) || 0;
-      state.settings.graduationPeriod = $("#settingGraduationPeriod").value.trim() || "Wisuda 2026";
-      state.settings.monthlyBudget = Number($("#settingBudget").value.replace(/\D/g, "")) || 0;
-      state.settings.currency = $("#settingCurrency").value;
-      state.settings.notifications = $("#settingNotifications").checked;
-      state.settings.compactSidebar = false;
-      $("#settingCompact").checked = false;
-      saveState();
-      applySettingsToUI();
-      renderAll();
-      showToast("Pengaturan disimpan", "Preferensi aplikasi berhasil diperbarui.");
     });
 
 
@@ -10587,23 +11107,25 @@
           createDatabaseLogoThumbnail(file)
         ]);
         const result = await requestDatabase({ action: "uploadApplicationLogo", filename: file.name, dataUrl, thumbnailDataUrl });
-        state.settings.applicationLogoUrl = result.logoUrl || "";
-        state.settings.applicationLogoFileId = result.fileId || "";
-        state.settings.applicationLogoFileName = result.fileName || file.name || "";
-        state.settings.applicationLogoMimeType = result.mimeType || file.type || "";
-        state.settings.applicationLogoSizeBytes = Number(result.sizeBytes) || file.size || 0;
-        state.settings.applicationLogoUpdatedAt = result.updatedAt || new Date().toISOString();
-        state.settings.applicationLogoInlineData = result.inlineData || thumbnailDataUrl || "";
-        publicBrandingLoaded = true;
+        applyGlobalBrandingPayload(result.branding || {
+          ...globalBranding,
+          applicationLogoUrl: result.logoUrl || "",
+          applicationLogoFileId: result.fileId || "",
+          applicationLogoFileName: result.fileName || file.name || "",
+          applicationLogoMimeType: result.mimeType || file.type || "",
+          applicationLogoSizeBytes: Number(result.sizeBytes) || file.size || 0,
+          applicationLogoUpdatedAt: result.updatedAt || new Date().toISOString(),
+          applicationLogoInlineData: result.inlineData || thumbnailDataUrl || ""
+        }, result.brandingRevision);
         remoteRevision = Number(result.revision) || remoteRevision;
         cacheState();
         applySettingsToUI();
-        applyApplicationBranding(state.settings.organizationName);
+        applyApplicationBranding(globalBranding.organizationName);
         $("#settingLogoFile").value = "";
         void refreshPublicBranding(true);
         showToast("Logo tersimpan", result.publicSharing === false
           ? "Logo tersimpan di Google Drive, tetapi kebijakan Drive belum mengizinkan akses publik."
-          : "Logo baru langsung digunakan pada halaman login dan sidebar.");
+          : "Logo perusahaan baru langsung digunakan di seluruh kelas, halaman login, dan sidebar.");
       } catch (error) {
         showToast("Logo tidak dapat disimpan", error.message);
       } finally {
@@ -10687,7 +11209,7 @@
           const message = [
             "Assalamualaikum " + targetName + ",",
             "",
-            "Permintaan lupa kata sandi Anda telah disetujui admin.",
+            "Permintaan lupa kata sandi Anda telah disetujui Team IT.",
             "Link aplikasi: " + applicationShareUrl(),
             "Username: " + (result.username || requestItem.username || ""),
             "Kata sandi sementara: " + (result.temporaryPassword || ""),
@@ -10748,7 +11270,7 @@
           { timeoutMs: WRITE_REQUEST_TIMEOUT_MS, suppressAuthHandling: true }
         );
         closeModal("forgotPasswordModal");
-        await informationPopup("Permintaan terkirim", result.message || "Permintaan menunggu persetujuan admin.");
+        await informationPopup("Permintaan terkirim", result.message || "Permintaan menunggu persetujuan Team IT.");
       } catch (error) {
         showToast("Permintaan tidak terkirim", error.message);
       } finally {
@@ -13638,7 +14160,7 @@ document.body.classList.remove("sidebar-mini");
       function openMemberRefund(memberId, preferredFund = "") {
         appLog("Membuka form refund manual anggota cuti", { memberId, preferredFund });
         if (!canEditFinance()) {
-          showToast("Akses ditolak", "Hanya admin, editor, atau IT yang dapat mencatat refund.");
+          showToast("Akses ditolak", "Hanya Team IT, Ketua Kelas, atau Bendahara yang dapat mencatat refund.");
           return;
         }
         const member = refundMember(memberId);
